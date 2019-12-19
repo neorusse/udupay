@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon --exec node bin/www",
     "build": "tsc --watch --preserveWatchOutput",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "node-pg-migrate"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/neorusse/udupay#readme",
   "dependencies": {
+    "@databases/pg": "^2.0.0",
     "bcrypt": "^3.0.7",
     "chalk-pipe": "^3.0.0",
     "compression": "^1.7.4",
@@ -36,7 +38,8 @@
     "http-errors": "^1.7.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
-    "sequelize": "^5.21.3"
+    "node-pg-migrate": "^4.1.0",
+    "pg": "^7.15.1"
   },
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
@@ -51,7 +54,6 @@
     "@types/morgan": "^1.7.37",
     "@types/node": "^12.12.19",
     "@types/sequelize": "^4.28.8",
-    "@types/supertest": "^2.0.8",
     "cypress": "^3.8.0",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
