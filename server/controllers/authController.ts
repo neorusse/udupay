@@ -1,4 +1,5 @@
 import { getUserByEmail, insertUser } from "../helpers/userQueryBuilder";
+import { comparePassword } from "../helpers/appService";
 
 /**
  * User Signup
@@ -12,7 +13,7 @@ import { getUserByEmail, insertUser } from "../helpers/userQueryBuilder";
  * @returns {object} User object
  */
 
-export async function Signup(
+export async function signup(
   firstname: string,
   lastname: string,
   email: string,
@@ -24,8 +25,8 @@ export async function Signup(
   // retrieve user details
   const userExist = await getUserByEmail(email);
 
-  // check if pod already exist
-  if (userExist) {
+  // check if user already exist
+  if (userExist.length > 0) {
     return {
       status: 409,
       success: false,
@@ -49,5 +50,34 @@ export async function Signup(
     success: true,
     message: "user successfully created",
     payload
+  };
+}
+
+/**
+ * User Login
+ * @param {string} email
+ * @param {string} password
+ * @returns {object} User object
+ */
+
+export async function login(email: string, password: string) {
+  // retrieve user details
+  const user = await getUserByEmail(email);
+
+  // check if user does not exist
+  if (!user.length || !(await comparePassword(user[0].password, password))) {
+    return {
+      status: 400,
+      success: false,
+      message: "Invalid email or password",
+      user
+    };
+  }
+
+  return {
+    status: 200,
+    success: true,
+    message: "User login successful",
+    user
   };
 }
