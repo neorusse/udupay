@@ -4,6 +4,9 @@ import cors from "cors";
 import compression from "compression";
 import logger from "morgan";
 
+// Importing routes
+import userRouter from "./routes/users";
+
 // Initialize the Express App
 const app: Application = express();
 
@@ -18,8 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 
 // Root Route
 app.get("/", (_req, res) => {
-  res.status(200).json({ info: "Welcome to UduPay" });
+  res.status(200).json({ info: "Welcome to UduPay App" });
 });
+
+// ROUTES
+app.use("/api/v1/users", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(
