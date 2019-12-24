@@ -3,11 +3,9 @@ import { sql } from "@databases/pg";
 
 // Retrieve user by email
 export async function getUserByEmail(email: string) {
-  return (
-    await db.query(sql`
+  return await db.query(sql`
     SELECT * FROM users WHERE email=${email}
-  `)
-  )[0];
+  `);
 }
 
 // Insert user
