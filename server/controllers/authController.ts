@@ -1,6 +1,8 @@
 import { getUserByEmail, insertUser } from "../helpers/userQueryBuilder";
 import { comparePassword } from "../helpers/appService";
 
+import crypto from "crypto";
+
 /**
  * User Signup
  * @param {string} firstName
@@ -81,3 +83,11 @@ export async function login(email: string, password: string) {
     user
   };
 }
+
+/**
+ * User forget password
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} User object
+ */
+export async function forgetPassword(req, res) {}
