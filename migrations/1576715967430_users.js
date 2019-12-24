@@ -34,12 +34,21 @@ exports.up = pgm => {
     phone: {
       type: "VARCHAR(20)"
     },
-    img: {
+    img_url: {
       type: "VARCHAR(20)"
     },
     is_admin: {
       type: "BOOLEAN",
       default: false
+    },
+    passwordResetToken: {
+      type: "VARCHAR(20)"
+    },
+    passwordChanged_at: {
+      type: "timestamptz"
+    },
+    passwordResetExpires_at: {
+      type: "timestamptz"
     },
     created_at: {
       type: "timestamptz",
@@ -47,9 +56,7 @@ exports.up = pgm => {
       default: pgm.func("current_timestamp")
     },
     updated_at: {
-      type: "timestamptz",
-      notNull: true,
-      default: pgm.func("current_timestamp")
+      type: "timestamptz"
     },
     deleted_at: {
       type: "timestamptz",
