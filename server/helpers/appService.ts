@@ -8,9 +8,9 @@ import { JWT_PRIVATE_KEY } from "../config";
  * @param {string} password
  * @returns {string} returns hashed password
  */
-export const hashPassword = (password: string) => {
+export async function hashPassword(password: string) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(7));
-};
+}
 
 /**
  * comparePassword
@@ -18,9 +18,9 @@ export const hashPassword = (password: string) => {
  * @param {string} password
  * @returns {Boolean} return True or False
  */
-export const comparePassword = (hashPassword: string, password: string) => {
+export async function comparePassword(hashPassword: string, password: string) {
   return bcrypt.compareSync(password, hashPassword);
-};
+}
 
 /**
  * Generate Token
@@ -28,7 +28,11 @@ export const comparePassword = (hashPassword: string, password: string) => {
  * @returns {string} token
  */
 
-export const generateToken = (id: string, email: string, isAdmin: string) => {
+export async function generateToken(
+  id: string,
+  email: string,
+  isAdmin: string
+) {
   const token = jwt.sign(
     {
       userId: id,
@@ -39,4 +43,4 @@ export const generateToken = (id: string, email: string, isAdmin: string) => {
     { expiresIn: "7h" }
   );
   return token;
-};
+}

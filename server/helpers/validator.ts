@@ -1,6 +1,6 @@
 import { body, validationResult } from "express-validator";
 
-export const userValidationRules = () => {
+export const validateSignup = () => {
   return [
     body("first_name")
       .not()
@@ -39,6 +39,23 @@ export const userValidationRules = () => {
       .not()
       .isEmpty()
       .trim()
+      .escape()
+  ];
+};
+
+export const validateLogin = () => {
+  return [
+    body("email", "Please provide valid email and password!")
+      .not()
+      .isEmpty()
+      .trim()
+      .isEmail()
+      .normalizeEmail(),
+    body("password", "Please provide valid email and password!")
+      .not()
+      .isEmpty()
+      .trim()
+      .isLength({ min: 5 })
       .escape()
   ];
 };
