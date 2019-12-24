@@ -4,7 +4,8 @@
   "description": "A Web App for Residential Dues Collection",
   "main": "bin/www",
   "scripts": {
-    "start": "nodemon --exec node bin/www",
+    "start": "node bin/www",
+    "dev": "nodemon --exec node bin/www",
     "build": "tsc --watch --preserveWatchOutput",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "node-pg-migrate"
@@ -47,6 +48,7 @@
     "@types/chalk-pipe": "^2.0.0",
     "@types/compression": "^1.0.1",
     "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.2",
     "@types/http-errors": "^1.6.3",
     "@types/jest": "^24.0.23",
@@ -69,5 +71,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
