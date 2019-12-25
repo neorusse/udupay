@@ -24,3 +24,13 @@ export async function insertUser(
     RETURNING id, first_name, last_name, email, street, city, phone, img_url, is_admin;
   `);
 }
+
+/** TO SET TOKEN EXPIRY TIME IN DB */
+// update user
+export async function updateUser(userId: string, token: string) {
+  return await db.query(sql`
+    UPDATE users
+    SET reset_password_token=${token}
+    WHERE id=${userId}
+  `);
+}

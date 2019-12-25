@@ -41,13 +41,13 @@ exports.up = pgm => {
       type: "BOOLEAN",
       default: false
     },
-    passwordResetToken: {
-      type: "VARCHAR(20)"
+    reset_password_token: {
+      type: "TEXT"
     },
-    passwordChanged_at: {
+    password_changed_at: {
       type: "timestamptz"
     },
-    passwordResetExpires_at: {
+    reset_password_expires_at: {
       type: "timestamptz"
     },
     created_at: {
