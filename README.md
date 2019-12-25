@@ -29,7 +29,7 @@ Admin can view all users and perform all CRUD operations on users.<br/>
 
 ### Project Management
 
-Project is managed with [Pivotal Tracker](https://www.pivotaltracker.com) and can be accessed via this link [UduPay](https://www.pivotaltracker.com/n/projects/2314418).
+Project is managed with [Pivotal Tracker](https://www.pivotaltracker.com) and can be accessed via this link [UduPay](https://www.pivotaltracker.com/n/projects/2426882).
 
 ### Technology Used
 
@@ -76,11 +76,13 @@ Code coverage generated using [Jest](https://jestjs.io/)
 
 The API was hosted on Heroku and can be access via [UduPay](https://udupay.com/)
 
-| S/N | HTTP VERB | ENDPOINT           | FUNCTIONALITY                    |
-| --: | --------- | ------------------ | -------------------------------- |
-|   1 | POST      | api/v1/auth/signup | Enable user to signup            |
-|   2 | POST      | api/v1/auth/login  | Enable user to login             |
-|   3 | POST      | api/v1/payments    | Enable user to make dues payment |
+| S/N | HTTP VERB | ENDPOINT                   | FUNCTIONALITY                             |
+| --: | --------- | -------------------------- | ----------------------------------------- |
+|   1 | POST      | api/v1/auth/signup         | Enable user to signup                     |
+|   2 | POST      | api/v1/auth/login          | Enable user to login                      |
+|   3 | POST      | api/v1/auth/forgetPassword | Enable user to request for password reset |
+|   4 | POST      | api/v1/auth/resetPassword  | Enable user to reset password             |
+|   5 | POST      | api/v1/auth/updatePassword | Enable user to update password            |
 
 ### API Documentation
 
