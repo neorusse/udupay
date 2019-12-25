@@ -1,7 +1,13 @@
-import { getUserByEmail, insertUser } from "../helpers/userQueryBuilder";
-import { comparePassword } from "../helpers/appService";
-
+import { Request, Response } from "express";
 import crypto from "crypto";
+
+import {
+  getUserByEmail,
+  insertUser,
+  updateUser
+} from "../helpers/userQueryBuilder";
+import { comparePassword } from "../helpers/appService";
+import { sendEmail } from "../utils/sendEmail";
 
 /**
  * User Signup
@@ -88,6 +94,52 @@ export async function login(email: string, password: string) {
  * User forget password
  * @param {object} req
  * @param {object} res
- * @returns {object} User object
+ * @returns {object} Success object
  */
-export async function forgetPassword(req, res) {}
+export async function forgetPassword(req: Request, res: Response) {
+  if (req.body.email === "") {
+    res.status(400).send("email is required");
+  }
+
+  // retrieve user details
+  const user = await getUserByEmail(req.body.email);
+
+  // check if user already exist
+  if (user.length < 1) {
+    res.status(403).json({
+      status: 403,
+      success: false,
+      message: "invalid email"
+    });
+
+    return;
+  }
+
+  // generate token
+  const token = crypto.randomBytes(20).toString("hex");
+
+  /** TO SET TOKEN EXPIRY TIME IN DB */
+
+  // update user
+  await updateUser(user[0].id, token);
+
+  try {
+    // send email
+    await sendEmail(user[0].email, token);
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "Password recovery email sent"
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
