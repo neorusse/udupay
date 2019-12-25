@@ -1,6 +1,13 @@
 import db from "../utils/dbConnect";
 import { sql } from "@databases/pg";
 
+// Retrieve user by Id
+export async function getUserById(id: string) {
+  return await db.query(sql`
+    SELECT * FROM users WHERE id=${id}
+  `);
+}
+
 // Retrieve user by email
 export async function getUserByEmail(email: string) {
   return await db.query(sql`
@@ -46,7 +53,7 @@ export async function updateUserToken(userId: string, token: string) {
 export async function updateUserPassword(userId: string, password: string) {
   return await db.query(sql`
     UPDATE users
-    SET password=${password}
+    SET password=${password}, reset_password_token=${null}, reset_password_expires_at=${null}
     WHERE id=${userId}
   `);
 }
