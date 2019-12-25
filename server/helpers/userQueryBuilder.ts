@@ -8,6 +8,13 @@ export async function getUserByEmail(email: string) {
   `);
 }
 
+// Retrieve user by token
+export async function getUserByToken(token: string) {
+  return await db.query(sql`
+    SELECT * FROM users WHERE reset_password_token=${token}
+  `);
+}
+
 // Insert user
 export async function insertUser(
   first_name: string,
@@ -26,11 +33,20 @@ export async function insertUser(
 }
 
 /** TO SET TOKEN EXPIRY TIME IN DB */
-// update user
-export async function updateUser(userId: string, token: string) {
+// update user token
+export async function updateUserToken(userId: string, token: string) {
   return await db.query(sql`
     UPDATE users
     SET reset_password_token=${token}
+    WHERE id=${userId}
+  `);
+}
+
+// update user password
+export async function updateUserPassword(userId: string, password: string) {
+  return await db.query(sql`
+    UPDATE users
+    SET password=${password}
     WHERE id=${userId}
   `);
 }
