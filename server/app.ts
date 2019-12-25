@@ -25,7 +25,7 @@ app.get("/", (_req, res) => {
 });
 
 // ROUTES
-app.use("/api/v1/users", userRouter);
+app.use("/api/v1/auth", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(
