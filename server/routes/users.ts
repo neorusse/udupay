@@ -5,9 +5,11 @@ import {
   signup,
   login,
   forgetPassword,
-  resetPassword
+  resetPassword,
+  updatePassword
 } from "../controllers/authController";
 import { hashPassword, generateToken } from "../helpers/appService";
+import { auth } from "../middleware/auth";
 
 const router = Router();
 
@@ -90,7 +92,7 @@ router.post(
 );
 
 /**
- * User Signup Route
+ * User Login Route
  * @param {object} req
  * @param {object} res
  * @returns {object} Pod object
@@ -136,5 +138,8 @@ router.post("/forgetPassword", forgetPassword);
 
 // reset password route
 router.patch("/resetPassword/:token", resetPassword);
+
+// update password route
+router.patch("/updatePassword", auth, updatePassword);
 
 export default router;
