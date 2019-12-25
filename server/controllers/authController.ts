@@ -3,10 +3,13 @@ import crypto from "crypto";
 
 import {
   getUserByEmail,
+  getUserByToken,
+  getUserById,
   insertUser,
-  updateUser
+  updateUserToken,
+  updateUserPassword
 } from "../helpers/userQueryBuilder";
-import { comparePassword } from "../helpers/appService";
+import { hashPassword, comparePassword } from "../helpers/appService";
 import { sendEmail } from "../utils/sendEmail";
 
 /**
@@ -121,7 +124,7 @@ export async function forgetPassword(req: Request, res: Response) {
   /** TO SET TOKEN EXPIRY TIME IN DB */
 
   // update user
-  await updateUser(user[0].id, token);
+  await updateUserToken(user[0].id, token);
 
   try {
     // send email
@@ -131,6 +134,118 @@ export async function forgetPassword(req: Request, res: Response) {
       status: 200,
       success: true,
       message: "Password recovery email sent"
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * User reset password
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} Success object
+ */
+export async function resetPassword(req: Request, res: Response) {
+  // get user by token
+  const user = await getUserByToken(req.params.token);
+
+  // check if user already exist
+  if (user.length < 1) {
+    res.status(403).json({
+      status: 403,
+      success: false,
+      message: "Invalid/expired Token"
+    });
+
+    return;
+  }
+
+  const { password, confirmPassword } = req.body;
+
+  if (password !== confirmPassword) {
+    res.status(401).json({
+      status: 401,
+      success: false,
+      message: "Passwords do not match"
+    });
+
+    return;
+  }
+
+  // hashing the user password
+  const hashedPassword = await hashPassword(password);
+  try {
+    // send email
+    await updateUserPassword(user[0].id, hashedPassword);
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "Password reset successfully"
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * User update password
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} Success object
+ */
+export async function updatePassword(req: any, res: Response) {
+  // get user by token
+  const user = await getUserById(req.user.userId);
+
+  const { currentPassword, newPassword, confirmNewPassword } = req.body;
+
+  // check if user does not exist
+  if (!(await comparePassword(user[0].password, currentPassword))) {
+    res.status(400).json({
+      status: 400,
+      success: true,
+      message: "Invalid password"
+    });
+
+    return;
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    res.status(401).json({
+      status: 401,
+      success: false,
+      message: "Passwords do not match"
+    });
+
+    return;
+  }
+
+  // hashing the user password
+  const hashedPassword = await hashPassword(newPassword);
+  try {
+    // send email
+    await updateUserPassword(user[0].id, hashedPassword);
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "Password update successfully"
     });
 
     return;
