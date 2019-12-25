@@ -1,7 +1,12 @@
 import { Router } from "express";
 
 import { validateSignup, validateLogin, validate } from "../helpers/validator";
-import { signup, login, forgetPassword } from "../controllers/authController";
+import {
+  signup,
+  login,
+  forgetPassword,
+  resetPassword
+} from "../controllers/authController";
 import { hashPassword, generateToken } from "../helpers/appService";
 
 const router = Router();
@@ -126,6 +131,10 @@ router.post("/login", validateLogin(), validate, async (req: any, res: any) => {
   }
 });
 
+// forget password route
 router.post("/forgetPassword", forgetPassword);
+
+// reset password route
+router.patch("/resetPassword/:token", resetPassword);
 
 export default router;
