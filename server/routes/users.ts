@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { validateSignup, validateLogin, validate } from "../helpers/validator";
-import { signup, login } from "../controllers/authController";
+import { signup, login, forgetPassword } from "../controllers/authController";
 import { hashPassword, generateToken } from "../helpers/appService";
 
 const router = Router();
@@ -10,7 +10,7 @@ const router = Router();
  * User Signup Route
  * @param {object} req
  * @param {object} res
- * @returns {object} Pod object
+ * @returns {object} User object
  */
 router.post(
   "/signup",
@@ -125,5 +125,7 @@ router.post("/login", validateLogin(), validate, async (req: any, res: any) => {
     return;
   }
 });
+
+router.post("/forgetPassword", forgetPassword);
 
 export default router;
