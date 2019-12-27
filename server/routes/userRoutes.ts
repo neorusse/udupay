@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 
 import { validateSignup, validateLogin, validate } from "../helpers/validator";
 import {
@@ -23,7 +23,7 @@ router.post(
   "/signup",
   validateSignup(),
   validate,
-  async (req: any, res: any) => {
+  async (req: Request, res: Response) => {
     const {
       first_name,
       last_name,
@@ -97,41 +97,46 @@ router.post(
  * @param {object} res
  * @returns {object} Pod object
  */
-router.post("/login", validateLogin(), validate, async (req: any, res: any) => {
-  const { email, password } = req.body;
+router.post(
+  "/login",
+  validateLogin(),
+  validate,
+  async (req: Request, res: Response) => {
+    const { email, password } = req.body;
 
-  try {
-    // Invoke Signup controller function
-    const userDetails = await login(email, password);
+    try {
+      // Invoke Signup controller function
+      const userDetails = await login(email, password);
 
-    const { status, message, success, user } = userDetails;
+      const { status, message, success, user } = userDetails;
 
-    // Generate Token
-    const token = await generateToken(
-      user[0].id,
-      user[0].email,
-      user[0].is_admin
-    );
+      // Generate Token
+      const token = await generateToken(
+        user[0].id,
+        user[0].email,
+        user[0].is_admin
+      );
 
-    res
-      .header("x-auth-token", token)
-      .status(status)
-      .json({
-        status,
-        message,
-        success
+      res
+        .header("x-auth-token", token)
+        .status(status)
+        .json({
+          status,
+          message,
+          success
+        });
+
+      return;
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Internal Server Error"
       });
 
-    return;
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Internal Server Error"
-    });
-
-    return;
+      return;
+    }
   }
-});
+);
 
 // forget password route
 router.post("/forgetPassword", forgetPassword);
@@ -139,7 +144,10 @@ router.post("/forgetPassword", forgetPassword);
 // reset password route
 router.patch("/resetPassword/:token", resetPassword);
 
+/** PROTECT ALL ROUTES AFTER THIS MIDDLEWARE */
+router.use(auth);
+
 // update password route
-router.patch("/updatePassword", auth, updatePassword);
+router.patch("/updatePassword", updatePassword);
 
 export default router;
