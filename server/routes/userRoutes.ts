@@ -8,7 +8,7 @@ import {
   resetPassword,
   updatePassword
 } from "../controllers/authController";
-import { getMe } from "../controllers/userController";
+import { getMe, updateMe } from "../controllers/userController";
 
 import { hashPassword, generateToken } from "../helpers/appService";
 import { auth } from "../middleware/auth";
@@ -166,6 +166,36 @@ router.get("/me", async (req: any, res: Response) => {
       message,
       success,
       user
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+});
+
+// update password and profile photo of a logged-in user
+router.patch("/updateMe", async (req: any, res: Response) => {
+  try {
+    const userDetails = await updateMe(
+      req.user.userId,
+      req.body.currentPassword,
+      req.body.newPassword,
+      req.body.confirmNewPassword
+    );
+
+    const { status, success, message, updatedUser } = userDetails;
+
+    res.status(status).json({
+      status,
+      message,
+      success,
+      updatedUser
     });
 
     return;
