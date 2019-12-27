@@ -57,3 +57,12 @@ export async function updateUserPassword(userId: string, password: string) {
     WHERE id=${userId}
   `);
 }
+
+// delete user
+export async function deleteUserById(userId: string) {
+  return await db.query(sql`
+    UPDATE users
+    SET deleted_at=${new Date()}
+    WHERE id=${userId}
+  `);
+}

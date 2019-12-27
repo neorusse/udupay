@@ -170,7 +170,7 @@ export async function resetPassword(req: Request, res: Response) {
 
   const { password, confirmPassword } = req.body;
 
-  if (password !== confirmPassword) {
+  if (!password || password !== confirmPassword) {
     res.status(401).json({
       status: 401,
       success: false,
