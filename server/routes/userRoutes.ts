@@ -150,4 +150,9 @@ router.use(auth);
 // update password route
 router.patch("/updatePassword", updatePassword);
 
+/** LOGGED-IN USER ROUTE */
+
+// get details of a logged-in user
+router.get("/me", async (req: any, res: Response) => {});
+
 export default router;
