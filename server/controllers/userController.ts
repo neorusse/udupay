@@ -1,4 +1,5 @@
-import { getUserById } from "../helpers/userQueryBuilder";
+import { getUserById, updateUserPassword } from "../helpers/userQueryBuilder";
+import { hashPassword, comparePassword } from "../helpers/appService";
 
 /**
  * Get a single user
@@ -23,5 +24,51 @@ export async function getMe(userId: string) {
     success: true,
     message: "user successfully retrieved",
     user
+  };
+}
+
+/**
+ * Get a single user
+ * @param {string} userId
+ * @param {string} currentPassword
+ * @param {string} newPassword
+ * @param {string} confirmNewPassword
+ * @returns {object} Success object
+ */
+export async function updateMe(
+  userId: string,
+  currentPassword: string,
+  newPassword: string,
+  confirmNewPassword: string
+) {
+  const user = await getUserById(userId);
+
+  // check if user does not exist
+  if (!(await comparePassword(user[0].password, currentPassword))) {
+    return {
+      status: 400,
+      success: true,
+      message: "Invalid password"
+    };
+  }
+
+  if (!newPassword || newPassword !== confirmNewPassword) {
+    return {
+      status: 401,
+      success: false,
+      message: "Passwords do not match"
+    };
+  }
+
+  // hashing the user password
+  const hashedPassword = await hashPassword(newPassword);
+
+  const updatedUser = await updateUserPassword(userId, hashedPassword);
+
+  return {
+    status: 200,
+    success: true,
+    message: "Password update successfully",
+    updatedUser
   };
 }
