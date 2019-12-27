@@ -1,4 +1,8 @@
-import { getUserById, updateUserPassword } from "../helpers/userQueryBuilder";
+import {
+  getUserById,
+  updateUserPassword,
+  deleteUserById
+} from "../helpers/userQueryBuilder";
 import { hashPassword, comparePassword } from "../helpers/appService";
 
 /**
@@ -70,5 +74,22 @@ export async function updateMe(
     success: true,
     message: "Password update successfully",
     updatedUser
+  };
+}
+
+/**
+ * delete a single user
+ * @param {string} userId
+ * @returns {object} User object
+ */
+
+export async function deleteMe(userId: string) {
+  const user = await deleteUserById(userId);
+
+  return {
+    status: 204,
+    success: true,
+    message: "user successfully deleted",
+    user
   };
 }
