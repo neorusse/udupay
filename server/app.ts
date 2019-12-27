@@ -5,7 +5,7 @@ import compression from "compression";
 import logger from "morgan";
 
 // Importing routes
-import userRouter from "./routes/users";
+import userRouter from "./routes/userRoutes";
 
 // Initialize the Express App
 const app: Application = express();
@@ -25,7 +25,7 @@ app.get("/", (_req, res) => {
 });
 
 // ROUTES
-app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/users", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(
