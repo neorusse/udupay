@@ -8,6 +8,8 @@ import {
   resetPassword,
   updatePassword
 } from "../controllers/authController";
+import { getMe } from "../controllers/userController";
+
 import { hashPassword, generateToken } from "../helpers/appService";
 import { auth } from "../middleware/auth";
 
@@ -153,6 +155,28 @@ router.patch("/updatePassword", updatePassword);
 /** LOGGED-IN USER ROUTE */
 
 // get details of a logged-in user
-router.get("/me", async (req: any, res: Response) => {});
+router.get("/me", async (req: any, res: Response) => {
+  try {
+    const userDetails = await getMe(req.user.userId);
+
+    const { status, success, message, user } = userDetails;
+
+    res.status(status).json({
+      status,
+      message,
+      success,
+      user
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+});
 
 export default router;
