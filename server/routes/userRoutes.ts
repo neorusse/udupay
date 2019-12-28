@@ -12,7 +12,9 @@ import {
   getMe,
   updateMe,
   deleteMe,
-  getAllUsers
+  getAllUsers,
+  getAUser,
+  deleteAUser
 } from "../controllers/userController";
 
 import { hashPassword, generateToken } from "../helpers/appService";
@@ -242,7 +244,13 @@ router.delete("/deleteMe", async (req: any, res: Response) => {
 /** PROTECT ALL ROUTES AFTER THIS MIDDLEWARE */
 router.use(adminAuth);
 
-// forget password route
+// fetch all users
 router.get("/getAllUsers", getAllUsers);
+
+// fetch a single user
+router.get("/:userId", getAUser);
+
+// fetch a single user
+router.delete("/:userId", deleteAUser);
 
 export default router;
