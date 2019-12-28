@@ -1,7 +1,10 @@
+import { Request, Response } from "express";
+
 import {
   getUserById,
   updateUserPassword,
-  deleteUserById
+  deleteUserById,
+  fetchAllUsers
 } from "../helpers/userQueryBuilder";
 import { hashPassword, comparePassword } from "../helpers/appService";
 
@@ -92,4 +95,32 @@ export async function deleteMe(userId: string) {
     message: "user successfully deleted",
     user
   };
+}
+
+/**
+ * Get a single user
+ * @returns {object} User object
+ */
+
+export async function getAllUsers(_req: Request, res: Response) {
+  try {
+    // send email
+    const allUsers = await fetchAllUsers();
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "All users fetched successfully",
+      allUsers
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
 }
