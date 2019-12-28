@@ -2,23 +2,23 @@ import db from "../utils/dbConnect";
 import { sql } from "@databases/pg";
 
 // Retrieve all users
-export async function fetchAllUsers() {
+export async function fetchAllUsers(id: string) {
   return await db.query(sql`
-    SELECT * FROM users WHERE deleted_at IS NULL
+    SELECT * FROM users WHERE deleted_at IS NULL AND NOT id=${id}
   `);
 }
 
 // Retrieve user by Id
 export async function getUserById(id: string) {
   return await db.query(sql`
-    SELECT * FROM users WHERE id=${id}
+    SELECT * FROM users WHERE id=${id} AND deleted_at IS NULL
   `);
 }
 
 // Retrieve user by email
 export async function getUserByEmail(email: string) {
   return await db.query(sql`
-    SELECT * FROM users WHERE email=${email}
+    SELECT * FROM users WHERE email=${email} AND deleted_at IS NULL
   `);
 }
 
