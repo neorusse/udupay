@@ -1,6 +1,13 @@
 import db from "../utils/dbConnect";
 import { sql } from "@databases/pg";
 
+// Retrieve all users
+export async function fetchAllUsers() {
+  return await db.query(sql`
+    SELECT * FROM users WHERE deleted_at IS NULL
+  `);
+}
+
 // Retrieve user by Id
 export async function getUserById(id: string) {
   return await db.query(sql`
