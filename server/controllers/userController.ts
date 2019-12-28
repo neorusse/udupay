@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 
 import {
   getUserById,
@@ -98,19 +98,86 @@ export async function deleteMe(userId: string) {
 }
 
 /**
- * Get a single user
- * @returns {object} User object
+ * Get all users
+ * @returns {object} All users object
  */
 
-export async function getAllUsers(_req: Request, res: Response) {
+export async function getAllUsers(req: any, res: Response) {
   try {
     // send email
-    const allUsers = await fetchAllUsers();
+    const allUsers = await fetchAllUsers(req.user.userId);
 
     res.status(200).json({
       status: 200,
       success: true,
       message: "All users fetched successfully",
+      allUsers
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * Get a single user
+ * @returns {object} User object
+ */
+
+export async function getAUser(req: any, res: Response) {
+  try {
+    // send email
+    const user = await getUserById(req.params.userId);
+
+    // check if user already exist
+    if (user.length === 0) {
+      res.status(404).json({
+        status: 404,
+        success: false,
+        message: "User does not exist"
+      });
+
+      return;
+    }
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "User fetched successfully",
+      user
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * Delete a single user
+ * @returns {object} a null user object
+ */
+
+export async function deleteAUser(req: any, res: Response) {
+  try {
+    // send email
+    const allUsers = await deleteUserById(req.params.userId);
+
+    res.status(204).json({
+      status: 204,
+      success: true,
+      message: "User deleted successfully",
       allUsers
     });
 
