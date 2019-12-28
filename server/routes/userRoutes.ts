@@ -8,7 +8,12 @@ import {
   resetPassword,
   updatePassword
 } from "../controllers/authController";
-import { getMe, updateMe, deleteMe } from "../controllers/userController";
+import {
+  getMe,
+  updateMe,
+  deleteMe,
+  getAllUsers
+} from "../controllers/userController";
 
 import { hashPassword, generateToken } from "../helpers/appService";
 import { auth, adminAuth } from "../middleware/auth";
@@ -236,5 +241,8 @@ router.delete("/deleteMe", async (req: any, res: Response) => {
 
 /** PROTECT ALL ROUTES AFTER THIS MIDDLEWARE */
 router.use(adminAuth);
+
+// forget password route
+router.get("/getAllUsers", getAllUsers);
 
 export default router;
