@@ -11,7 +11,7 @@ import {
 import { getMe, updateMe, deleteMe } from "../controllers/userController";
 
 import { hashPassword, generateToken } from "../helpers/appService";
-import { auth } from "../middleware/auth";
+import { auth, adminAuth } from "../middleware/auth";
 
 const router = Router();
 
@@ -233,5 +233,8 @@ router.delete("/deleteMe", async (req: any, res: Response) => {
     return;
   }
 });
+
+/** PROTECT ALL ROUTES AFTER THIS MIDDLEWARE */
+router.use(adminAuth);
 
 export default router;

@@ -17,3 +17,14 @@ export const auth = (req: any, res: any, next: any) => {
     res.status(400).send("Invalid token");
   }
 };
+
+// Admin only authentication middleware
+export function adminAuth(req: any, res: any, next: any) {
+  if (!req.user.isAdmin) {
+    return res
+      .status(403)
+      .send("You do not have permission to perform this action");
+  }
+
+  next();
+}
