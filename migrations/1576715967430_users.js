@@ -41,6 +41,10 @@ exports.up = pgm => {
       type: "BOOLEAN",
       default: false
     },
+    is_active: {
+      type: "BOOLEAN",
+      default: true
+    },
     reset_password_token: {
       type: "TEXT"
     },
