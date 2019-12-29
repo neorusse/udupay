@@ -250,7 +250,7 @@ router.get("/getAllUsers", getAllUsers);
 // fetch a single user
 router.get("/:userId", getAUser);
 
-// fetch a single user
+// delete a single user
 router.delete("/:userId", deleteAUser);
 
 export default router;
