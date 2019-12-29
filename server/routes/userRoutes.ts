@@ -8,10 +8,17 @@ import {
   resetPassword,
   updatePassword
 } from "../controllers/authController";
-import { getMe, updateMe, deleteMe } from "../controllers/userController";
+import {
+  getMe,
+  updateMe,
+  deleteMe,
+  getAllUsers,
+  getAUser,
+  deleteAUser
+} from "../controllers/userController";
 
 import { hashPassword, generateToken } from "../helpers/appService";
-import { auth } from "../middleware/auth";
+import { auth, adminAuth } from "../middleware/auth";
 
 const router = Router();
 
@@ -233,5 +240,17 @@ router.delete("/deleteMe", async (req: any, res: Response) => {
     return;
   }
 });
+
+/** PROTECT ALL ROUTES AFTER THIS MIDDLEWARE */
+router.use(adminAuth);
+
+// fetch all users
+router.get("/getAllUsers", getAllUsers);
+
+// fetch a single user
+router.get("/:userId", getAUser);
+
+// fetch a single user
+router.delete("/:userId", deleteAUser);
 
 export default router;
