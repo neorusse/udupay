@@ -4,7 +4,8 @@ import {
   getUserById,
   updateUserPassword,
   deleteUserById,
-  fetchAllUsers
+  fetchAllUsers,
+  permDeleteUserById
 } from "../helpers/userQueryBuilder";
 import { hashPassword, comparePassword } from "../helpers/appService";
 
@@ -81,7 +82,7 @@ export async function updateMe(
 }
 
 /**
- * delete a single user
+ * Soft delete a single user
  * @param {string} userId
  * @returns {object} User object
  */
@@ -104,7 +105,7 @@ export async function deleteMe(userId: string) {
 
 export async function getAllUsers(req: any, res: Response) {
   try {
-    // send email
+    // Retrieve all users
     const allUsers = await fetchAllUsers(req.user.userId);
 
     res.status(200).json({
@@ -165,14 +166,14 @@ export async function getAUser(req: any, res: Response) {
 }
 
 /**
- * Delete a single user
+ * Permanently delete a user
  * @returns {object} a null user object
  */
 
 export async function deleteAUser(req: any, res: Response) {
   try {
     // send email
-    const allUsers = await deleteUserById(req.params.userId);
+    const allUsers = await permDeleteUserById(req.params.userId);
 
     res.status(204).json({
       status: 204,

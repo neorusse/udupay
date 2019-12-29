@@ -4,7 +4,7 @@ import { sql } from "@databases/pg";
 // Retrieve all users
 export async function fetchAllUsers(id: string) {
   return await db.query(sql`
-    SELECT * FROM users WHERE deleted_at IS NULL AND NOT id=${id}
+    SELECT * FROM users WHERE created_at IS NOT NULL AND NOT id=${id}
   `);
 }
 
@@ -42,7 +42,7 @@ export async function insertUser(
   return await db.query(sql`
     INSERT INTO users (first_name, last_name, email, password, street, city, phone)
     VALUES (${first_name}, ${last_name}, ${email}, ${password}, ${street}, ${city}, ${phone})
-    RETURNING id, first_name, last_name, email, street, city, phone, img_url, is_admin;
+    RETURNING id, first_name, last_name, email, street, city, phone, img_url, is_admin, is_active;
   `);
 }
 
@@ -69,7 +69,14 @@ export async function updateUserPassword(userId: string, password: string) {
 export async function deleteUserById(userId: string) {
   return await db.query(sql`
     UPDATE users
-    SET deleted_at=${new Date()}
+    SET deleted_at=${new Date()}, is_active=${false}
     WHERE id=${userId}
   `);
+}
+
+// permanantly delete a user
+export async function permDeleteUserById(userId: string) {
+  return await db.query(
+    sql`DELETE FROM users WHERE id=${userId} AND is_active=${false}`
+  );
 }
