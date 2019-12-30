@@ -60,6 +60,22 @@ export const validateLogin = () => {
   ];
 };
 
+export const validateCreateDue = () => {
+  return [
+    body("name")
+      .not()
+      .isEmpty()
+      .trim()
+      .escape()
+      .withMessage("Due Name must be provided"),
+    body("amount", "Amount must be provided")
+      .not()
+      .isEmpty()
+      .trim()
+      .escape()
+  ];
+};
+
 export const validate = (req: any, res: any, next: any) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
