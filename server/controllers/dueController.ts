@@ -5,7 +5,8 @@ import {
   getDueByName,
   getDueById,
   insertDue,
-  updateDue
+  updateDue,
+  deleteDueById
 } from "../helpers/dueQueryBuilder";
 
 /**
@@ -123,6 +124,36 @@ export async function updateADue(req: Request, res: Response) {
       success: true,
       message: "Due updated successfully",
       updatedDue
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * delete a due
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} a null due object
+ */
+
+export async function deleteADue(req: Request, res: Response) {
+  try {
+    // delete due
+    const deletedDue = await deleteDueById(req.params.dueId);
+
+    res.status(204).json({
+      status: 204,
+      success: true,
+      message: "Due deleted successfully",
+      deletedDue
     });
 
     return;
