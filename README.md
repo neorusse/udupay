@@ -76,13 +76,23 @@ Code coverage generated using [Jest](https://jestjs.io/)
 
 The API was hosted on Heroku and can be access via [UduPay](https://udupay.com/)
 
-| S/N | HTTP VERB | ENDPOINT                   | FUNCTIONALITY                             |
-| --: | --------- | -------------------------- | ----------------------------------------- |
-|   1 | POST      | api/v1/auth/signup         | Enable user to signup                     |
-|   2 | POST      | api/v1/auth/login          | Enable user to login                      |
-|   3 | POST      | api/v1/auth/forgetPassword | Enable user to request for password reset |
-|   4 | POST      | api/v1/auth/resetPassword  | Enable user to reset password             |
-|   5 | POST      | api/v1/auth/updatePassword | Enable user to update password            |
+| S/N | HTTP VERB | ENDPOINT                          | FUNCTIONALITY                             |
+| --: | --------- | --------------------------------- | ----------------------------------------- |
+|   1 | POST      | api/v1/users/signup               | Enable user to signup                     |
+|   2 | POST      | api/v1/users/login                | Enable user to login                      |
+|   3 | POST      | api/v1/users/forgetPassword       | Enable user to request for password reset |
+|   4 | POST      | api/v1/users/resetPassword/:token | Enable user to reset password             |
+|   5 | POST      | api/v1/users/updatePassword       | Enable user to update password            |
+|   6 | GET       | api/v1/users/me                   | Enable log-in user to fetch his details   |
+|   7 | PATCH     | api/v1/users/updateMe             | Enable log-in user to update his details  |
+|   8 | DELETE    | api/v1/users/deleteMe             | Enable log-in user to delete his account  |
+|   9 | GET       | api/v1/users/getAllUsers          | Enable admin to fetch all users           |
+|  10 | GET       | api/v1/user/:userId               | Enable admin to fetch a user              |
+|  11 | DELETE    | api/v1/user/:userId               | Enable admin to delete a user             |
+|  12 | POST      | api/v1/dues/create                | Enable admin to create a due              |
+|  13 | GET       | api/v1/dues/getAllDues            | Enable admin to fetch all dues            |
+|  14 | PATCH     | api/v1/dues/:dueId                | Enable admin to update a due              |
+|  15 | DELETE    | api/v1/dues/:dueId                | Enable admin to delete a due              |
 
 ### API Documentation
 
