@@ -100,6 +100,8 @@ export async function deleteMe(userId: string) {
 
 /**
  * Get all users
+ * @param {object} req
+ * @param {object} res
  * @returns {object} All users object
  */
 
@@ -128,6 +130,8 @@ export async function getAllUsers(req: any, res: Response) {
 
 /**
  * Get a single user
+ * @param {object} req
+ * @param {object} res
  * @returns {object} User object
  */
 
@@ -167,6 +171,8 @@ export async function getAUser(req: any, res: Response) {
 
 /**
  * Permanently delete a user
+ * @param {object} req
+ * @param {object} res
  * @returns {object} a null user object
  */
 
