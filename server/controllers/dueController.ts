@@ -3,7 +3,9 @@ import { Request, Response } from "express";
 import {
   fetchAllDues,
   getDueByName,
-  insertDue
+  getDueById,
+  insertDue,
+  updateDue
 } from "../helpers/dueQueryBuilder";
 
 /**
@@ -72,6 +74,55 @@ export async function getAllDues(_req: Request, res: Response) {
       success: true,
       message: "All dues fetched successfully",
       allDues
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * Update a due
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} due success object
+ */
+
+export async function updateADue(req: Request, res: Response) {
+  const { name, amount } = req.body;
+
+  // sanitize name
+  const sanitizedName = name.toLowerCase();
+
+  try {
+    // get due
+    const due = await getDueById(req.params.dueId);
+
+    // check if due exist
+    if (due.length === 0) {
+      res.status(404).json({
+        status: 404,
+        success: false,
+        message: "Due does not exist"
+      });
+
+      return;
+    }
+
+    // update due
+    const updatedDue = await updateDue(req.params.dueId, sanitizedName, amount);
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "Due updated successfully",
+      updatedDue
     });
 
     return;
