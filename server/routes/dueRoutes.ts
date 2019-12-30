@@ -5,15 +5,16 @@ import { validateCreateDue, validate } from "../helpers/validator";
 import {
   createADue,
   getAllDues,
-  updateADue
+  updateADue,
+  deleteADue
 } from "../controllers/dueController";
 
-//import { adminAuth } from "../middleware/auth";
+import { adminAuth } from "../middleware/auth";
 
 const router = Router();
 
 /** PROTECT ALL ROUTES USING THIS MIDDLEWARE */
-//router.use(adminAuth);
+router.use(adminAuth);
 
 // create a due
 router.post("/create", validateCreateDue(), validate, createADue);
@@ -21,7 +22,10 @@ router.post("/create", validateCreateDue(), validate, createADue);
 // get all dues
 router.get("/getAllDues", getAllDues);
 
-// get all dues
+// update a due
 router.patch("/:dueId", updateADue);
+
+// delete a due
+router.delete("/:dueId", deleteADue);
 
 export default router;
