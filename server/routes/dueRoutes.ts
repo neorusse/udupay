@@ -9,12 +9,12 @@ import {
   deleteADue
 } from "../controllers/dueController";
 
-import { adminAuth } from "../middleware/auth";
+import { auth, adminAuth } from "../middleware/auth";
 
 const router = Router();
 
 /** PROTECT ALL ROUTES USING THIS MIDDLEWARE */
-router.use(adminAuth);
+router.use(auth, adminAuth);
 
 // create a due
 router.post("/create", validateCreateDue(), validate, createADue);
