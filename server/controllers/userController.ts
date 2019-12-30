@@ -36,7 +36,7 @@ export async function getMe(userId: string) {
 }
 
 /**
- * Get a single user
+ * update a user
  * @param {string} userId
  * @param {string} currentPassword
  * @param {string} newPassword
