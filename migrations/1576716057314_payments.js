@@ -9,7 +9,7 @@ exports.up = pgm => {
       notNull: true,
       primaryKey: true,
       default: pgm.func("uuid_generate_v4()"),
-      comment: "The unique id of the user"
+      comment: "The unique id of the payment"
     },
     user_id: {
       type: "uuid",
