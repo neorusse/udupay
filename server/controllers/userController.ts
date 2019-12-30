@@ -137,7 +137,7 @@ export async function getAllUsers(req: any, res: Response) {
 
 export async function getAUser(req: any, res: Response) {
   try {
-    // send email
+    // get user
     const user = await getUserById(req.params.userId);
 
     // check if user already exist
@@ -178,14 +178,14 @@ export async function getAUser(req: any, res: Response) {
 
 export async function deleteAUser(req: any, res: Response) {
   try {
-    // send email
-    const allUsers = await permDeleteUserById(req.params.userId);
+    // get user
+    const user = await permDeleteUserById(req.params.userId);
 
     res.status(204).json({
       status: 204,
       success: true,
       message: "User deleted successfully",
-      allUsers
+      user
     });
 
     return;
