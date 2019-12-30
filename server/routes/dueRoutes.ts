@@ -2,7 +2,11 @@ import { Router } from "express";
 
 import { validateCreateDue, validate } from "../helpers/validator";
 
-import { createADue, getAllDues } from "../controllers/dueController";
+import {
+  createADue,
+  getAllDues,
+  updateADue
+} from "../controllers/dueController";
 
 //import { adminAuth } from "../middleware/auth";
 
@@ -16,5 +20,8 @@ router.post("/create", validateCreateDue(), validate, createADue);
 
 // get all dues
 router.get("/getAllDues", getAllDues);
+
+// get all dues
+router.patch("/:dueId", updateADue);
 
 export default router;
