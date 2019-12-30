@@ -6,6 +6,7 @@ import logger from "morgan";
 
 // Importing routes
 import userRouter from "./routes/userRoutes";
+import dueRouter from "./routes/dueRoutes";
 
 // Initialize the Express App
 const app: Application = express();
@@ -26,6 +27,7 @@ app.get("/", (_req, res) => {
 
 // ROUTES
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/dues", dueRouter);
 
 // catch 404 and forward to error handler
 app.use(function(

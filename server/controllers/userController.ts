@@ -36,7 +36,7 @@ export async function getMe(userId: string) {
 }
 
 /**
- * Get a single user
+ * update a user
  * @param {string} userId
  * @param {string} currentPassword
  * @param {string} newPassword
@@ -100,6 +100,8 @@ export async function deleteMe(userId: string) {
 
 /**
  * Get all users
+ * @param {object} req
+ * @param {object} res
  * @returns {object} All users object
  */
 
@@ -128,12 +130,14 @@ export async function getAllUsers(req: any, res: Response) {
 
 /**
  * Get a single user
+ * @param {object} req
+ * @param {object} res
  * @returns {object} User object
  */
 
 export async function getAUser(req: any, res: Response) {
   try {
-    // send email
+    // get user
     const user = await getUserById(req.params.userId);
 
     // check if user already exist
@@ -167,19 +171,21 @@ export async function getAUser(req: any, res: Response) {
 
 /**
  * Permanently delete a user
+ * @param {object} req
+ * @param {object} res
  * @returns {object} a null user object
  */
 
 export async function deleteAUser(req: any, res: Response) {
   try {
-    // send email
-    const allUsers = await permDeleteUserById(req.params.userId);
+    // get user
+    const user = await permDeleteUserById(req.params.userId);
 
     res.status(204).json({
       status: 204,
       success: true,
       message: "User deleted successfully",
-      allUsers
+      user
     });
 
     return;
