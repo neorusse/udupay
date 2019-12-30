@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 
-import { getDueByName, insertDue } from "../helpers/dueQueryBuilder";
+import {
+  fetchAllDues,
+  getDueByName,
+  insertDue
+} from "../helpers/dueQueryBuilder";
 
 /**
  * Create a due
@@ -16,10 +20,10 @@ export async function createADue(req: Request, res: Response) {
   const sanitizedName = name.toLowerCase();
 
   try {
-    // retrieve user details
+    // retrieve due details
     const dueExist = await getDueByName(sanitizedName);
 
-    // check if user already exist
+    // check if due is already created
     if (dueExist.length > 0) {
       res.status(409).json({
         status: 409,
@@ -38,6 +42,36 @@ export async function createADue(req: Request, res: Response) {
       success: true,
       message: "Due created successfully",
       due
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * Get all dues
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} All dues object
+ */
+
+export async function getAllDues(_req: Request, res: Response) {
+  try {
+    // Retrieve all dues
+    const allDues = await fetchAllDues();
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "All dues fetched successfully",
+      allDues
     });
 
     return;
