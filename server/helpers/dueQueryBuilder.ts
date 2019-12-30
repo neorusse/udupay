@@ -29,3 +29,8 @@ export async function updateDue(dueId: string, name: string, amount: string) {
     sql`UPDATE dues SET name=${name}, amount=${amount} WHERE id=${dueId} RETURNING id, name, amount`
   );
 }
+
+// delete a user
+export async function deleteDueById(id: string) {
+  return await db.query(sql`DELETE FROM dues WHERE id=${id}`);
+}
