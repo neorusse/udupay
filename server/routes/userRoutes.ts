@@ -253,4 +253,7 @@ router.get("/:userId", getAUser);
 // delete a single user
 router.delete("/:userId", deleteAUser);
 
+// search for a user
+router.get("/search");
+
 export default router;
