@@ -29,7 +29,7 @@ Admin can view all users and perform all CRUD operations on users.<br/>
 
 ### Project Management
 
-Project is managed with [Pivotal Tracker](https://www.pivotaltracker.com) and can be accessed via this link [UduPay](https://www.pivotaltracker.com/n/projects/2426882).
+Project was managed with [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2426882) and can be accessed via this link [UduPay Project Dashboard](https://www.pivotaltracker.com/n/projects/2426882).
 
 ### Technology Used
 
@@ -89,11 +89,12 @@ The API was hosted on Heroku and can be access via [UduPay](https://udupay.com/)
 |   9 | GET       | api/v1/users/getAllUsers          | Enable admin to fetch all users           |
 |  10 | GET       | api/v1/user/:userId               | Enable admin to fetch a user              |
 |  11 | DELETE    | api/v1/user/:userId               | Enable admin to delete a user             |
-|  12 | GET       | api/v1/users/search               | Enable admin to search for user           |
-|  13 | POST      | api/v1/dues/create                | Enable admin to create a due              |
-|  14 | GET       | api/v1/dues/getAllDues            | Enable admin to fetch all dues            |
-|  15 | PATCH     | api/v1/dues/:dueId                | Enable admin to update a due              |
-|  16 | DELETE    | api/v1/dues/:dueId                | Enable admin to delete a due              |
+|  12 | POST      | api/v1/users/payment              | Enable user to make dues payment          |
+|  13 | GET       | api/v1/users/search               | Enable admin to search for user           |
+|  14 | POST      | api/v1/dues/create                | Enable admin to create a due              |
+|  15 | GET       | api/v1/dues/getAllDues            | Enable admin to fetch all dues            |
+|  16 | PATCH     | api/v1/dues/:dueId                | Enable admin to update a due              |
+|  17 | DELETE    | api/v1/dues/:dueId                | Enable admin to delete a due              |
 
 ### API Documentation
 
