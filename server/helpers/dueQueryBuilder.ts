@@ -16,7 +16,12 @@ export async function getDueById(id: string) {
   return await db.query(sql`SELECT * FROM dues WHERE id=${id}`);
 }
 
-// Insert due
+// Retrieve a due by amount
+export async function getDueIdByAmt(amount: string) {
+  return await db.query(sql`SELECT id FROM dues WHERE amount=${amount}`);
+}
+
+// Write due to db
 export async function insertDue(name: string, amount: number) {
   return await db.query(sql`
     INSERT INTO dues (name, amount) VALUES (${name}, ${amount}) RETURNING id, name, amount;
