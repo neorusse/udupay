@@ -163,6 +163,9 @@ router.patch("/updatePassword", updatePassword);
 
 /** LOGGED-IN USER ROUTE */
 
+// search for a user
+router.post("/payment", duePayment);
+
 // get details of a logged-in user
 router.get("/me", async (req: any, res: Response) => {
   try {
@@ -251,9 +254,6 @@ router.get("/getAllUsers", getAllUsers);
 
 // search for a user
 router.get("/search", searchUser);
-
-// search for a user
-router.get("/payment", duePayment);
 
 // fetch a single user
 router.get("/:userId", getAUser);
