@@ -89,10 +89,11 @@ The API was hosted on Heroku and can be access via [UduPay](https://udupay.com/)
 |   9 | GET       | api/v1/users/getAllUsers          | Enable admin to fetch all users           |
 |  10 | GET       | api/v1/user/:userId               | Enable admin to fetch a user              |
 |  11 | DELETE    | api/v1/user/:userId               | Enable admin to delete a user             |
-|  12 | POST      | api/v1/dues/create                | Enable admin to create a due              |
-|  13 | GET       | api/v1/dues/getAllDues            | Enable admin to fetch all dues            |
-|  14 | PATCH     | api/v1/dues/:dueId                | Enable admin to update a due              |
-|  15 | DELETE    | api/v1/dues/:dueId                | Enable admin to delete a due              |
+|  12 | GET       | api/v1/users/search               | Enable admin to search for user           |
+|  13 | POST      | api/v1/dues/create                | Enable admin to create a due              |
+|  14 | GET       | api/v1/dues/getAllDues            | Enable admin to fetch all dues            |
+|  15 | PATCH     | api/v1/dues/:dueId                | Enable admin to update a due              |
+|  16 | DELETE    | api/v1/dues/:dueId                | Enable admin to delete a due              |
 
 ### API Documentation
 
