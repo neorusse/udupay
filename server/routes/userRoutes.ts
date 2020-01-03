@@ -15,7 +15,8 @@ import {
   getAllUsers,
   getAUser,
   deleteAUser,
-  searchUser
+  searchUser,
+  duePayment
 } from "../controllers/userController";
 
 import { hashPassword, generateToken } from "../helpers/appService";
@@ -250,6 +251,9 @@ router.get("/getAllUsers", getAllUsers);
 
 // search for a user
 router.get("/search", searchUser);
+
+// search for a user
+router.get("/payment", duePayment);
 
 // fetch a single user
 router.get("/:userId", getAUser);
