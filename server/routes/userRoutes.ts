@@ -14,7 +14,8 @@ import {
   deleteMe,
   getAllUsers,
   getAUser,
-  deleteAUser
+  deleteAUser,
+  searchUser
 } from "../controllers/userController";
 
 import { hashPassword, generateToken } from "../helpers/appService";
@@ -247,13 +248,13 @@ router.use(adminAuth);
 // fetch all users
 router.get("/getAllUsers", getAllUsers);
 
+// search for a user
+router.get("/search", searchUser);
+
 // fetch a single user
 router.get("/:userId", getAUser);
 
 // delete a single user
 router.delete("/:userId", deleteAUser);
-
-// search for a user
-router.get("/search");
 
 export default router;
