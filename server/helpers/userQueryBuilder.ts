@@ -25,7 +25,16 @@ export async function getUserByEmail(email: string) {
 // Retrieve user by token
 export async function getUserByToken(token: string) {
   return await db.query(sql`
-    SELECT * FROM users WHERE reset_password_token=${token}
+    SELECT * FROM users WHERE reset_password_token=${token} AND reset_password_expires_at > NOW()
+  `);
+}
+
+// Retrieve a user searched for
+export async function getSearchUser(value: string) {
+  return await db.query(sql`
+    SELECT * FROM users WHERE first_name LIKE ${"%" +
+      value +
+      "%"} OR last_name LIKE ${"%" + value + "%"}
   `);
 }
 
@@ -46,12 +55,11 @@ export async function insertUser(
   `);
 }
 
-/** TO SET TOKEN EXPIRY TIME IN DB */
 // update user token
 export async function updateUserToken(userId: string, token: string) {
   return await db.query(sql`
     UPDATE users
-    SET reset_password_token=${token}
+    SET reset_password_token=${token}, reset_password_expires_at = NOW() + INTERVAL '60 minute'
     WHERE id=${userId}
   `);
 }
@@ -60,7 +68,7 @@ export async function updateUserToken(userId: string, token: string) {
 export async function updateUserPassword(userId: string, password: string) {
   return await db.query(sql`
     UPDATE users
-    SET password=${password}, reset_password_token=${null}, reset_password_expires_at=${null}
+    SET password=${password}, reset_password_token=${null}, reset_password_expires_at=${null}, password_changed_at = NOW()
     WHERE id=${userId}
   `);
 }

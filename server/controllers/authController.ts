@@ -121,8 +121,6 @@ export async function forgetPassword(req: Request, res: Response) {
   // generate token
   const token = crypto.randomBytes(20).toString("hex");
 
-  /** TO SET TOKEN EXPIRY TIME IN DB */
-
   // update user
   await updateUserToken(user[0].id, token);
 
@@ -245,7 +243,7 @@ export async function updatePassword(req: any, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "Password update successfully"
+      message: "Password update successfull"
     });
 
     return;

@@ -5,7 +5,8 @@ import {
   updateUserPassword,
   deleteUserById,
   fetchAllUsers,
-  permDeleteUserById
+  permDeleteUserById,
+  getSearchUser
 } from "../helpers/userQueryBuilder";
 import { hashPassword, comparePassword } from "../helpers/appService";
 
@@ -185,6 +186,47 @@ export async function deleteAUser(req: any, res: Response) {
       status: 204,
       success: true,
       message: "User deleted successfully",
+      user
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * search for a user
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} User object
+ */
+
+export async function searchUser(req: any, res: Response) {
+  try {
+    // get user
+    const user = await getSearchUser(req.query.q);
+
+    // check if user already exist
+    if (user.length === 0) {
+      res.status(404).json({
+        status: 404,
+        success: false,
+        message: "User does not exist"
+      });
+
+      return;
+    }
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "User fetched successfully",
       user
     });
 
