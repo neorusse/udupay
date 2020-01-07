@@ -10,12 +10,13 @@ jobs:
     # An executor is a place where build steps will occur. By specifying docker,
     # we are telling Circle CI that we want our build steps to take place inside of a Docker container.
     docker:
-      — image: circleci/node:10
+      # specify the version you desire here
+      - image: circleci/node:10
 
-    # Specify service dependencies here if necessary
-    # CircleCI maintains a library of pre-built images
-    # documented at https://circleci.com/docs/2.0/circleci-images/
-    # - image: circleci/mongo:4.0.3
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:4.0.3
 
     working_directory: ~/pren-typescript
 
@@ -23,7 +24,7 @@ jobs:
     # checkout is a CircleCI built in command which is responsible for checking out the project’s source code
     # into the Job’s (PREN Server) working_directory
     steps:
-      — checkout
+      - checkout
 
       # Download and cache dependencies
       - restore_cache:
@@ -43,4 +44,4 @@ jobs:
       # Run typescript
       - run: yarn tsc
       # run tests!
-      — run: yarn jest
+      - run: yarn jest
