@@ -34,8 +34,9 @@ exports.up = pgm => {
     phone: {
       type: "VARCHAR(20)"
     },
-    img_url: {
-      type: "VARCHAR(20)"
+    photo: {
+      type: "VARCHAR(255)",
+      default: "default.jpg"
     },
     is_admin: {
       type: "BOOLEAN",
@@ -67,6 +68,12 @@ exports.up = pgm => {
       comment:
         "We do soft deletes - This field marks if a user has been deleted"
     }
+  });
+  pgm.createConstraint("users", "first_name_lowercase_ck", {
+    check: "first_name=LOWER(first_name)"
+  });
+  pgm.createConstraint("users", "last_name_lowercase_ck", {
+    check: "last_name=LOWER(last_name)"
   });
 };
 
