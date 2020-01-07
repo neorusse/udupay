@@ -30,11 +30,11 @@ export async function getUserByToken(token: string) {
 }
 
 // Retrieve a user searched for
-export async function getSearchUser(value: string) {
+export async function getSearchUser(id: string, value: string) {
   return await db.query(sql`
-    SELECT * FROM users WHERE first_name LIKE ${"%" +
-      value +
-      "%"} OR last_name LIKE ${"%" + value + "%"}
+    SELECT * FROM users WHERE NOT id=${id} AND first_name LIKE ${"%" +
+    value +
+    "%"} OR last_name LIKE ${"%" + value + "%"}
   `);
 }
 
@@ -51,7 +51,7 @@ export async function insertUser(
   return await db.query(sql`
     INSERT INTO users (first_name, last_name, email, password, street, city, phone)
     VALUES (${first_name}, ${last_name}, ${email}, ${password}, ${street}, ${city}, ${phone})
-    RETURNING id, first_name, last_name, email, street, city, phone, img_url, is_admin, is_active;
+    RETURNING id, first_name, last_name, email, street, city, phone, photo, is_admin, is_active;
   `);
 }
 
@@ -70,6 +70,13 @@ export async function updateUserPassword(userId: string, password: string) {
     UPDATE users
     SET password=${password}, reset_password_token=${null}, reset_password_expires_at=${null}, password_changed_at = NOW()
     WHERE id=${userId}
+  `);
+}
+
+// update user photo
+export async function updateUserPhoto(userId: string, photo: string) {
+  return await db.query(sql`
+    UPDATE users SET photo=${photo} WHERE id=${userId}
   `);
 }
 
