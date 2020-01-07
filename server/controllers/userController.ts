@@ -4,11 +4,12 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 import {
   getUserById,
-  updateUserPassword,
-  deleteUserById,
   fetchAllUsers,
-  permDeleteUserById,
-  getSearchUser
+  getSearchUser,
+  updateUserPassword,
+  updateUserPhoto,
+  deleteUserById,
+  permDeleteUserById
 } from "../helpers/userQueryBuilder";
 import { getDueIdByAmt } from "../helpers/dueQueryBuilder";
 import { insertDuePayment } from "../helpers/paymentQueryBuilder";
@@ -42,49 +43,95 @@ export async function getMe(userId: string) {
 }
 
 /**
- * update a user
- * @param {string} userId
- * @param {string} currentPassword
- * @param {string} newPassword
- * @param {string} confirmNewPassword
- * @returns {object} Success object
+ * Update a user
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} Sucess object
  */
-export async function updateMe(
-  userId: string,
-  currentPassword: string,
-  newPassword: string,
-  confirmNewPassword: string
-) {
-  const user = await getUserById(userId);
+export async function updateMe(req: any, res: Response) {
+  const { currentPassword, newPassword, confirmNewPassword } = req.body;
+
+  const user = await getUserById(req.user.userId);
 
   // check if user does not exist
   if (!(await comparePassword(user[0].password, currentPassword))) {
-    return {
+    res.status(400).json({
       status: 400,
-      success: true,
+      success: false,
       message: "Invalid password"
-    };
+    });
+
+    return;
   }
 
   if (!newPassword || newPassword !== confirmNewPassword) {
-    return {
+    res.status(401).json({
       status: 401,
       success: false,
       message: "Passwords do not match"
-    };
+    });
+
+    return;
   }
 
   // hashing the user password
   const hashedPassword = await hashPassword(newPassword);
 
-  const updatedUser = await updateUserPassword(userId, hashedPassword);
+  try {
+    await updateUserPassword(req.user.userId, hashedPassword);
 
-  return {
-    status: 200,
-    success: true,
-    message: "Password update successfully",
-    updatedUser
-  };
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "Password update successfully"
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
+}
+
+/**
+ * Update a user - Phtot Upload
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} Sucess object
+ */
+export async function uploadPhoto(req: any, res: Response) {
+  if (!req.file) {
+    res.status(404).json({
+      status: 404,
+      success: false,
+      message: "Please upload photo"
+    });
+
+    return;
+  }
+
+  try {
+    await updateUserPhoto(req.user.userId, req.file.filename);
+
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "Photo upload successfull"
+    });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error"
+    });
+
+    return;
+  }
 }
 
 /**
@@ -214,8 +261,11 @@ export async function deleteAUser(req: any, res: Response) {
 
 export async function searchUser(req: any, res: Response) {
   try {
+    // sanitize name
+    const sanitizedQueryName = req.query.q.toLowerCase();
+
     // get user
-    const user = await getSearchUser(req.query.q);
+    const user = await getSearchUser(req.user.userId, sanitizedQueryName);
 
     // check if user already exist
     if (user.length === 0) {

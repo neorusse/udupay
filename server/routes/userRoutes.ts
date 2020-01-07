@@ -16,8 +16,10 @@ import {
   getAUser,
   deleteAUser,
   searchUser,
-  duePayment
+  duePayment,
+  uploadPhoto
 } from "../controllers/userController";
+import { uploadUserPhoto, resizeUserPhoto } from "../middleware/photoUpload";
 
 import { hashPassword, generateToken } from "../helpers/appService";
 import { auth, adminAuth } from "../middleware/auth";
@@ -45,14 +47,20 @@ router.post(
       phone
     } = req.body;
 
+    // sanitize first name
+    const sanitizedFirstname = first_name.toLowerCase();
+
+    // sanitize last name
+    const sanitizedLastname = last_name.toLowerCase();
+
     // Hash password
     const hashedPassword = await hashPassword(password);
 
     try {
       // Invoke Signup controller function
       const userDetails = await signup(
-        first_name,
-        last_name,
+        sanitizedFirstname,
+        sanitizedLastname,
         email,
         hashedPassword,
         street,
@@ -191,35 +199,11 @@ router.get("/me", async (req: any, res: Response) => {
   }
 });
 
-// update password and profile photo of a logged-in user
-router.patch("/updateMe", async (req: any, res: Response) => {
-  try {
-    const userDetails = await updateMe(
-      req.user.userId,
-      req.body.currentPassword,
-      req.body.newPassword,
-      req.body.confirmNewPassword
-    );
+// update password of a logged-in user
+router.patch("/updateMe", updateMe);
 
-    const { status, success, message, updatedUser } = userDetails;
-
-    res.status(status).json({
-      status,
-      message,
-      success,
-      updatedUser
-    });
-
-    return;
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Internal Server Error"
-    });
-
-    return;
-  }
-});
+// upload profile photo of a logged-in user
+router.patch("/uploadPhoto", uploadUserPhoto, resizeUserPhoto, uploadPhoto);
 
 // update password and profile photo of a logged-in user
 router.delete("/deleteMe", async (req: any, res: Response) => {
