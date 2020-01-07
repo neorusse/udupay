@@ -5,7 +5,7 @@
 version: 2.1
 jobs:
   # Build section, it defines the name for the job - PREN Server.
-  PREN Server:
+  build:
     # The docker section defines an executor for the build process.
     # An executor is a place where build steps will occur. By specifying docker,
     # we are telling Circle CI that we want our build steps to take place inside of a Docker container.
