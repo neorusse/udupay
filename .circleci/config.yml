@@ -1,0 +1,46 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+jobs:
+  # Build section, it defines the name for the job - PREN Server.
+  PREN Server:
+    # The docker section defines an executor for the build process.
+    # An executor is a place where build steps will occur. By specifying docker,
+    # we are telling Circle CI that we want our build steps to take place inside of a Docker container.
+    docker:
+      — image: circleci/node:10
+
+    # Specify service dependencies here if necessary
+    # CircleCI maintains a library of pre-built images
+    # documented at https://circleci.com/docs/2.0/circleci-images/
+    # - image: circleci/mongo:4.0.3
+
+    working_directory: ~/pren-typescript
+
+    # The steps section defines a list of steps that need to be executed to complete the build process.
+    # checkout is a CircleCI built in command which is responsible for checking out the project’s source code
+    # into the Job’s (PREN Server) working_directory
+    steps:
+      — checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependency-cache-server-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - dependency-cache-server-
+
+      - run: yarn --frozen-lockfile
+
+      - save_cache:
+          key: dependency-cache-server-{{ checksum "package.json" }}
+          paths:
+            # Save the yarn cache folder so we can cache cypress as well.
+            - ~/.cache
+
+      # Run typescript
+      - run: yarn tsc
+      # run tests!
+      — run: yarn jest
