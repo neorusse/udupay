@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node bin/www",
     "dev": "nodemon --exec node bin/www",
-    "build": "tsc --watch --preserveWatchOutput",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-compile": "tsc --watch --preserveWatchOutput",
+    "test": "node scripts/setup-tests.js",
     "migrate": "node-pg-migrate"
   },
   "repository": {
@@ -43,11 +43,13 @@
     "node-pg-migrate": "^4.1.0",
     "nodemailer": "^6.4.2",
     "pg": "^7.15.1",
+    "readline-sync": "^1.4.10",
     "sharp": "^0.23.4",
     "stripe": "^7.15.0"
   },
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
+    "@databases/pg-test": "^1.0.3",
     "@types/bcrypt": "^3.0.0",
     "@types/chalk-pipe": "^2.0.0",
     "@types/compression": "^1.0.1",
@@ -80,5 +82,14 @@
   },
   "engines": {
     "node": ">=10.0.0"
+  },
+  "pg": {
+    "test": {
+      "migrationsScript": [
+        "yarn",
+        "migrate",
+        "up"
+      ]
+    }
   }
 }
