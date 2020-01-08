@@ -5,10 +5,13 @@
   "main": "bin/www",
   "scripts": {
     "start": "node bin/www",
+    "client:start": "cd client; yarn start",
     "dev": "nodemon --exec node bin/www",
-    "build": "tsc --watch --preserveWatchOutput",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "node-pg-migrate"
+    "ts:compile": "tsc --watch --preserveWatchOutput",
+    "test": "node scripts/setup-tests.js",
+    "test:integration": "cypress run",
+    "db:migrate": "node-pg-migrate",
+    "build": "bash -e scripts/build.sh"
   },
   "repository": {
     "type": "git",
@@ -43,11 +46,13 @@
     "node-pg-migrate": "^4.1.0",
     "nodemailer": "^6.4.2",
     "pg": "^7.15.1",
+    "readline-sync": "1.4.10",
     "sharp": "^0.23.4",
     "stripe": "^7.15.0"
   },
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
+    "@databases/pg-test": "1.0.3",
     "@types/bcrypt": "^3.0.0",
     "@types/chalk-pipe": "^2.0.0",
     "@types/compression": "^1.0.1",
@@ -60,8 +65,8 @@
     "@types/morgan": "^1.7.37",
     "@types/multer": "^1.3.10",
     "@types/node": "^12.12.19",
-    "@types/sequelize": "^4.28.8",
     "@types/sharp": "^0.23.1",
+    "@types/supertest": "2.0.8",
     "cypress": "^3.8.0",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
@@ -80,5 +85,14 @@
   },
   "engines": {
     "node": ">=10.0.0"
+  },
+  "pg": {
+    "test": {
+      "migrationsScript": [
+        "yarn",
+        "migrate",
+        "up"
+      ]
+    }
   }
 }
