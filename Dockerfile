@@ -1,9 +1,14 @@
+# use node latest version image
 FROM node:latest
 
-ENV NODE_ENV development
+# container dir we want to work from
+WORKDIR /usr/src/udupay-api
 
-COPY . .
+# copy all files from dev root dir to container root dir - /usr/src/udupay-api
+COPY ./ ./
 
+# npm scpript to run in the container
 RUN yarn add
 
-CMD node bin/www
+# command to execute by default when build image is launched
+CMD ["/bin/bash"]
