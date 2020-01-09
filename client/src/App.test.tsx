@@ -1,9 +1,10 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import App from "./App";
+import React from 'react';
+import { render, cleanup } from '@testing-library/react';
 
-test("renders learn react link", () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import App from './App';
+
+afterEach(cleanup);
+
+it('renders without crashing', () => {
+  render(<App />);
 });
