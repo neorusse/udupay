@@ -12,7 +12,7 @@ import {
   ImageContainer,
 } from './hero.styles';
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
     <HeroContainer>
       <HeroCaption>
