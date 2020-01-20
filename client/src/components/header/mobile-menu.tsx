@@ -54,9 +54,10 @@ const NavLinks = styled.div`
   align-items: center;
 
   & a {
-    font-size: 15px;
+    font-size: 1.7rem;
+    font-weight: 600;
     line-height: 2;
-    color: #000;
+    color: #333;
     cursor: pointer;
 
     &:hover {
