@@ -9,6 +9,7 @@
     "dev": "nodemon --exec node bin/www",
     "ts:compile": "tsc --watch --preserveWatchOutput",
     "test": "node scripts/setup-tests.js",
+    "test:ci": "jest --coverage",
     "test:integration": "cypress run",
     "db:migrate": "node-pg-migrate",
     "build": "bash -e scripts/build.sh"
@@ -90,7 +91,7 @@
     "test": {
       "migrationsScript": [
         "yarn",
-        "migrate",
+        "db:migrate",
         "up"
       ]
     }
