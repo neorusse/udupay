@@ -2,8 +2,8 @@ import React from 'react';
 import { useSpring, config } from 'react-spring';
 
 import { ReactComponent as Logo } from '../../assets/udupay.svg';
-import BurgerMenu from './BurgerMenu';
-import MobileMenu from './MobileMenu';
+import BurgerMenu from './burger-menu';
+import MobileMenu from './mobile-menu';
 
 import {
   HeaderContainer,
@@ -12,7 +12,7 @@ import {
   NavContainer,
   BurgerWrapper,
   NavLink,
-  NavLinkSignIn,
+  NavLinkSignUp,
 } from './header.styles';
 
 function Header({ navbarState, handleNavbar }) {
@@ -39,7 +39,7 @@ function Header({ navbarState, handleNavbar }) {
             <NavLink to="/communities">Communities</NavLink>
             <NavLink to="/support">Support</NavLink>
             <NavLink to="/login">Login</NavLink>
-            <NavLinkSignIn to="/register">create account</NavLinkSignIn>
+            <NavLinkSignUp to="/register">create account</NavLinkSignUp>
           </NavContainer>
           <BurgerWrapper>
             <BurgerMenu navbarState={navbarState} handleNavbar={handleNavbar} />

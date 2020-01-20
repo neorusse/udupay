@@ -7,6 +7,7 @@ export const HeaderContainer = styled(animated.nav)`
   width: 100%;
   z-index: 1;
   margin-bottom: 25px;
+  font-size: 1.7rem;
   font-weight: 600;
 `;
 
@@ -21,17 +22,12 @@ export const NavContainer = styled.div`
 
   & a {
     border-bottom: 1px solid transparent;
-    margin: 0 1.5rem;
+    margin-left: 5rem;
     transition: all 300ms linear 0s;
     text-decoration: none;
     cursor: pointer;
 
-    &:hover {
-      color: #fdcb6e;
-      border-bottom: 1px solid #fdcb6e;
-    }
-
-    @media (max-width: 768px) {
+    @media (max-width: 769px) {
       display: none;
     }
   }
@@ -48,22 +44,31 @@ export const LogoContainer = styled(Link)`
 export const NavLink = styled(Link)`
   cursor: pointer;
   color: #333;
-  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: #fdcb6e;
+  }
 `;
 
-export const NavLinkSignIn = styled(Link)`
+export const NavLinkSignUp = styled(Link)`
   background-color: #f5a623;
   border-radius: 4px;
   box-shadow: 0 2px 3px 0 #ccc;
   color: #fff;
-  padding: 10px 15px;
+  padding: 10px 10px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 1.3rem;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #db8c0a;
+    color: #fff;
+  }
 `;
 
 export const BurgerWrapper = styled.div`
