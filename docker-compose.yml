@@ -6,7 +6,7 @@ services:
     container_name: udupayAPI
     build: ./
     environment:
-      POSTGRES_URI: postgres://ruscom:topple@postgres:5432/udupaydb
+      DATABASE_URL: postgres://ruscom:topple@postgres:5432/udupaydb
       NODE_ENV: development
       PORT: 3050
     links:
