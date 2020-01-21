@@ -8,7 +8,7 @@ jobs:
   PREN Server:
     # The docker section defines an executor for the build process.
     # An executor is a place where build steps will occur. By specifying docker,
-    # we are telling Circle CI that we want our build steps to take place inside of a Docker container.
+    # we are telling Circle CI that we want our build steps to take place inside of a Node Docker container.
     docker:
       # specify the version you desire here
       - image: circleci/node:10
@@ -48,7 +48,7 @@ jobs:
       - run: yarn tsc
       # run tests!
       - run: echo "Testing API Routes"
-      - run: yarn jest
+      - run: yarn run test:ci
 
   PREN Client:
     docker:
@@ -112,7 +112,7 @@ jobs:
       # run tests!
       - run:
           name: Run integration tests
-          command: npx start-server-and-test start http://localhost:3050 test:integration
+          command: npx start-server-and-test start http://localhost:3000 test:integration
 
 workflows:
   version: 2
