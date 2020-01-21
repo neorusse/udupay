@@ -1,8 +1,10 @@
-# UduPay [App](https://udupay.netlify.com/)
+# [UduP@y App](https://udupay.netlify.com/) :credit_card:
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Project Description
 
-A web [app](https://udupay.netlify.com/) for Residential Dues Collection. It enables city, district, towns, village, street officials to collect dues such as development levy, sanitation dues, security and others from residents of a locality.
+A web [app](https://udupay.netlify.com/) for :house_with_garden: Residential Dues Collection :house_with_garden:. It enables city, district, towns, village, street officials to collect dues such as development levy, sanitation dues, security and others from residents of a locality.
 
 ### Table of Content
 
