@@ -2,33 +2,36 @@ version: '3.6'
 
 services:
   # Backend API
-  udupay-api:
-    container_name: backend
+  udupay-backend:
+    container_name: udupayAPI
     build: ./
-    command: yarn run dev
-
-    working_dir: /usr/src/udupay-api
-
     environment:
-      POSTGRES_URI: postgres://postgres:topple@postgres:5432/udupay
-
-    # links server with db
+      DATABASE_URL: postgres://ruscom:topple@postgres:5432/udupaydb
+      NODE_ENV: development
+      PORT: 3050
     links:
       - postgres
     ports:
       - '3050:3050'
+
+    command: yarn run dev
+
+    working_dir: /usr/src/udupay-api
+
     # enables our container filesystem to see local dev changes & updates itself
     volumes:
       - ./:/usr/src/udupay-api
+      - ./usr/src/udupay-api/node_modules
 
   # Database - Postgres
   postgres:
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: topple
-      POSTGRES_DB: udupay
-      POSTGRES_HOST: postgres
-    image: Postgres
+    container_name: udupayDB
+    image: postgres
     # postgres default port
     ports:
-      - '5432:5432'
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: ruscom
+      POSTGRES_PASSWORD: topple
+      POSTGRES_DB: udupaydb
+      POSTGRES_HOST: postgres

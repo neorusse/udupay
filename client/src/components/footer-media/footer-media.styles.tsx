@@ -11,7 +11,7 @@ export const FooterMediaContainer = styled.div`
   }
 `;
 
-export const FooterCopyright = styled.p`
+export const FooterCopyright = styled.div`
   display: inline-block;
   color: #4a4a4a;
   font-size: 16px;

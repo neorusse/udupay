@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import crypto from "crypto";
+import { Request, Response } from 'express';
+import crypto from 'crypto';
 
 import {
   getUserByEmail,
@@ -7,10 +7,14 @@ import {
   getUserById,
   insertUser,
   updateUserToken,
-  updateUserPassword
-} from "../helpers/userQueryBuilder";
-import { hashPassword, comparePassword } from "../helpers/appService";
-import { sendEmail } from "../utils/sendEmail";
+  updateUserPassword,
+} from '../helpers/userQueryBuilder';
+import {
+  hashPassword,
+  comparePassword,
+  generateToken,
+} from '../helpers/appService';
+import { sendEmail } from '../utils/sendEmail';
 
 /**
  * User Signup
@@ -31,7 +35,7 @@ export async function signup(
   password: string,
   street: string,
   city: string,
-  phone: string
+  phone: string,
 ) {
   // retrieve user details
   const userExist = await getUserByEmail(email);
@@ -41,7 +45,7 @@ export async function signup(
     return {
       status: 409,
       success: false,
-      message: "User already exist"
+      message: 'User already exist',
     };
   }
 
@@ -53,14 +57,14 @@ export async function signup(
     password,
     street,
     city,
-    phone
+    phone,
   );
 
   return {
     status: 201,
     success: true,
-    message: "user successfully created",
-    payload
+    message: 'user successfully created',
+    payload,
   };
 }
 
@@ -71,26 +75,50 @@ export async function signup(
  * @returns {object} User object
  */
 
-export async function login(email: string, password: string) {
+export async function login(req: Request, res: Response) {
+  const { email, password } = req.body;
+
   // retrieve user details
   const user = await getUserByEmail(email);
 
   // check if user does not exist
-  if (!user.length || !(await comparePassword(user[0].password, password))) {
-    return {
-      status: 400,
+  if (!user[0] || !(await comparePassword(user[0].password, password))) {
+    res.status(401).json({
+      status: 401,
       success: false,
-      message: "Invalid email or password",
-      user
-    };
+      message: 'Authentication failed',
+    });
+
+    return;
   }
 
-  return {
-    status: 200,
-    success: true,
-    message: "User login successful",
-    user
-  };
+  try {
+    // Generate Token
+    const token = await generateToken(
+      user[0].id,
+      user[0].email,
+      user[0].is_admin,
+    );
+
+    res
+      .header('x-auth-token', token)
+      .status(200)
+      .json({
+        status: 200,
+        success: true,
+        message: 'User login successful',
+        user,
+      });
+
+    return;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+    return;
+  }
 }
 
 /**
@@ -100,8 +128,8 @@ export async function login(email: string, password: string) {
  * @returns {object} Success object
  */
 export async function forgetPassword(req: Request, res: Response) {
-  if (req.body.email === "") {
-    res.status(400).send("email is required");
+  if (req.body.email === '') {
+    res.status(400).send('email is required');
   }
 
   // retrieve user details
@@ -112,14 +140,14 @@ export async function forgetPassword(req: Request, res: Response) {
     res.status(403).json({
       status: 403,
       success: false,
-      message: "invalid email"
+      message: 'invalid email',
     });
 
     return;
   }
 
   // generate token
-  const token = crypto.randomBytes(20).toString("hex");
+  const token = crypto.randomBytes(20).toString('hex');
 
   // update user
   await updateUserToken(user[0].id, token);
@@ -131,14 +159,14 @@ export async function forgetPassword(req: Request, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "Password recovery email sent"
+      message: 'Password recovery email sent',
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -160,7 +188,7 @@ export async function resetPassword(req: Request, res: Response) {
     res.status(403).json({
       status: 403,
       success: false,
-      message: "Invalid/expired Token"
+      message: 'Invalid/expired Token',
     });
 
     return;
@@ -172,7 +200,7 @@ export async function resetPassword(req: Request, res: Response) {
     res.status(401).json({
       status: 401,
       success: false,
-      message: "Passwords do not match"
+      message: 'Passwords do not match',
     });
 
     return;
@@ -187,14 +215,14 @@ export async function resetPassword(req: Request, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "Password reset successfully"
+      message: 'Password reset successfully',
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -218,7 +246,7 @@ export async function updatePassword(req: any, res: Response) {
     res.status(400).json({
       status: 400,
       success: true,
-      message: "Invalid password"
+      message: 'Invalid password',
     });
 
     return;
@@ -228,7 +256,7 @@ export async function updatePassword(req: any, res: Response) {
     res.status(401).json({
       status: 401,
       success: false,
-      message: "Passwords do not match"
+      message: 'Passwords do not match',
     });
 
     return;
@@ -243,14 +271,14 @@ export async function updatePassword(req: any, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "Password update successfull"
+      message: 'Password update successfull',
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;

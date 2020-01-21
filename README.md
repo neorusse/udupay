@@ -1,8 +1,10 @@
-# UduPay [App](https://udupay.com/)
+# [UduP@y App](https://udupay.netlify.com/) :credit_card:
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Project Description
 
-A web [app](https://udupay.com/) for Residential Dues Collection. It enables city, district, towns, village, street officials to collect dues such as development levy, sanitation dues, security and others from residents of a locality.
+A web [app](https://udupay.netlify.com/) for :house_with_garden: Residential Dues Collection :house_with_garden:. It enables city, district, towns, village, street officials to collect dues such as development levy, sanitation dues, security and others from residents of a locality.
 
 ### Table of Content
 
@@ -33,7 +35,7 @@ Project was managed with [Pivotal Tracker](https://www.pivotaltracker.com/n/proj
 
 ### Technology Used
 
-Modern JavaScript features and technology was used for this [project](https://udupay.com/).
+Modern JavaScript features and technology was used for this [project](https://udupay.netlify.com/).
 
 NodeJS is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allows you to run JavaScript on the server.
 
@@ -44,6 +46,12 @@ PostgreSQL - PostgreSQL, also known as Postgres, is a free and open-source relat
 React - React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies. React can be used as a base in the development of single-page or mobile applications, as it is optimal for fetching rapidly changing data that needs to be recorded.
 
 TypeScript - TypeScript is an open-source programming language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript, and adds optional static typing to the language. TypeScript is designed for development of large applications and transcompiles to JavaScript.
+
+Docker - Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.
+
+CircleCI - Prides itself as the best continuous integration and delivery platform for Linux, macOS, and Android, in the cloud or self-hosted.
+
+Pivotal Tracker - Pivotal Tracker is the agile project management tool of choice for developers around the world for real-time collaboration around a shared, prioritized backlog.
 
 ### Installation
 
@@ -74,7 +82,7 @@ Code coverage generated using [Jest](https://jestjs.io/)
 
 #### API URL
 
-The API was hosted on Heroku and can be access via [UduPay](https://udupay.com/)
+The API was hosted on Heroku and can be access via [UduPay](https://udupay.netlify.com/)
 
 | S/N | HTTP VERB | ENDPOINT                          | FUNCTIONALITY                             |
 | --: | --------- | --------------------------------- | ----------------------------------------- |

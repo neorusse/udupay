@@ -1,13 +1,13 @@
-import { Request, Response, Router } from "express";
+import { Request, Response, Router } from 'express';
 
-import { validateSignup, validateLogin, validate } from "../helpers/validator";
+import { validateSignup, validateLogin, validate } from '../helpers/validator';
 import {
   signup,
   login,
   forgetPassword,
   resetPassword,
-  updatePassword
-} from "../controllers/authController";
+  updatePassword,
+} from '../controllers/authController';
 import {
   getMe,
   updateMe,
@@ -17,12 +17,12 @@ import {
   deleteAUser,
   searchUser,
   duePayment,
-  uploadPhoto
-} from "../controllers/userController";
-import { uploadUserPhoto, resizeUserPhoto } from "../middleware/photoUpload";
+  uploadPhoto,
+} from '../controllers/userController';
+import { uploadUserPhoto, resizeUserPhoto } from '../middleware/photoUpload';
 
-import { hashPassword, generateToken } from "../helpers/appService";
-import { auth, adminAuth } from "../middleware/auth";
+import { hashPassword, generateToken } from '../helpers/appService';
+import { auth, adminAuth } from '../middleware/auth';
 
 const router = Router();
 
@@ -33,7 +33,7 @@ const router = Router();
  * @returns {object} User object
  */
 router.post(
-  "/signup",
+  '/signup',
   validateSignup(),
   validate,
   async (req: Request, res: Response) => {
@@ -44,7 +44,7 @@ router.post(
       password,
       street,
       city,
-      phone
+      phone,
     } = req.body;
 
     // sanitize first name
@@ -65,17 +65,17 @@ router.post(
         hashedPassword,
         street,
         city,
-        phone
+        phone,
       );
 
       const { status, message, success, payload } = userDetails;
 
-      if (userDetails.message === "User already exist") {
+      if (userDetails.message === 'User already exist') {
         res.status(status).json({
           status,
           message,
           success,
-          payload
+          payload,
         });
 
         return;
@@ -85,29 +85,29 @@ router.post(
       const token = await generateToken(
         payload.id,
         payload.email,
-        payload.is_admin
+        payload.is_admin,
       );
 
       res
-        .header("x-auth-token", token)
+        .header('x-auth-token', token)
         .status(status)
         .json({
           status,
           message,
           success,
-          payload
+          payload,
         });
 
       return;
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: "Internal Server Error"
+        message: 'Internal Server Error',
       });
 
       return;
     }
-  }
+  },
 );
 
 /**
@@ -116,66 +116,29 @@ router.post(
  * @param {object} res
  * @returns {object} Pod object
  */
-router.post(
-  "/login",
-  validateLogin(),
-  validate,
-  async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-
-    try {
-      // Invoke Signup controller function
-      const userDetails = await login(email, password);
-
-      const { status, message, success, user } = userDetails;
-
-      // Generate Token
-      const token = await generateToken(
-        user[0].id,
-        user[0].email,
-        user[0].is_admin
-      );
-
-      res
-        .header("x-auth-token", token)
-        .status(status)
-        .json({
-          status,
-          message,
-          success
-        });
-
-      return;
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: "Internal Server Error"
-      });
-
-      return;
-    }
-  }
-);
 
 // forget password route
-router.post("/forgetPassword", forgetPassword);
+router.post('/login', validateLogin(), validate, login);
+
+// forget password route
+router.post('/forgetPassword', forgetPassword);
 
 // reset password route
-router.patch("/resetPassword/:token", resetPassword);
+router.patch('/resetPassword/:token', resetPassword);
 
 /** PROTECT ALL ROUTES AFTER THIS MIDDLEWARE */
 router.use(auth);
 
 // update password route
-router.patch("/updatePassword", updatePassword);
+router.patch('/updatePassword', updatePassword);
 
 /** LOGGED-IN USER ROUTE */
 
 // search for a user
-router.post("/payment", duePayment);
+router.post('/payment', duePayment);
 
 // get details of a logged-in user
-router.get("/me", async (req: any, res: Response) => {
+router.get('/me', async (req: any, res: Response) => {
   try {
     const userDetails = await getMe(req.user.userId);
 
@@ -185,14 +148,14 @@ router.get("/me", async (req: any, res: Response) => {
       status,
       message,
       success,
-      user
+      user,
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -200,13 +163,13 @@ router.get("/me", async (req: any, res: Response) => {
 });
 
 // update password of a logged-in user
-router.patch("/updateMe", updateMe);
+router.patch('/updateMe', updateMe);
 
 // upload profile photo of a logged-in user
-router.patch("/uploadPhoto", uploadUserPhoto, resizeUserPhoto, uploadPhoto);
+router.patch('/uploadPhoto', uploadUserPhoto, resizeUserPhoto, uploadPhoto);
 
 // update password and profile photo of a logged-in user
-router.delete("/deleteMe", async (req: any, res: Response) => {
+router.delete('/deleteMe', async (req: any, res: Response) => {
   try {
     const userDetails = await deleteMe(req.user.userId);
 
@@ -216,14 +179,14 @@ router.delete("/deleteMe", async (req: any, res: Response) => {
       status,
       message,
       success,
-      user
+      user,
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -234,15 +197,15 @@ router.delete("/deleteMe", async (req: any, res: Response) => {
 router.use(adminAuth);
 
 // fetch all users
-router.get("/getAllUsers", getAllUsers);
+router.get('/getAllUsers', getAllUsers);
 
 // search for a user
-router.get("/search", searchUser);
+router.get('/search', searchUser);
 
 // fetch a single user
-router.get("/:userId", getAUser);
+router.get('/:userId', getAUser);
 
 // delete a single user
-router.delete("/:userId", deleteAUser);
+router.delete('/:userId', deleteAUser);
 
 export default router;
