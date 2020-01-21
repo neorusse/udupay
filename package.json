@@ -11,6 +11,7 @@
     "test": "node scripts/setup-tests.js",
     "test:ci": "jest --coverage",
     "test:integration": "cypress run",
+    "cypress:open": "cypress open",
     "db:migrate": "node-pg-migrate",
     "build": "bash -e scripts/build.sh"
   },
@@ -33,6 +34,7 @@
   "homepage": "https://github.com/neorusse/udupay#readme",
   "dependencies": {
     "@databases/pg": "^2.0.0",
+    "@types/testing-library__cypress": "5.0.1",
     "bcrypt": "^3.0.7",
     "chalk-pipe": "^3.0.0",
     "compression": "^1.7.4",
@@ -54,6 +56,7 @@
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
     "@databases/pg-test": "1.0.3",
+    "@testing-library/cypress": "5.0.2",
     "@types/bcrypt": "^3.0.0",
     "@types/chalk-pipe": "^2.0.0",
     "@types/compression": "^1.0.1",
@@ -68,7 +71,7 @@
     "@types/node": "^12.12.19",
     "@types/sharp": "^0.23.1",
     "@types/supertest": "2.0.8",
-    "cypress": "^3.8.0",
+    "cypress": "3.8.2",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
     "nodemon": "^2.0.2",
