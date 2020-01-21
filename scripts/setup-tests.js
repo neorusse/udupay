@@ -4,12 +4,17 @@ const DATABASE_URL = process.env.DATABASE_URL;
 const CI = !!process.env.CI;
 
 if (DATABASE_URL && !CI) {
+  /**
+   * Synchronous Readline (readline-sync) for interactively running to have a conversation with the user via a console.
+   * readlineSync tries to let your script have a conversation with the user via a console
+   */
   const rl = require('readline-sync');
 
   console.log(`Your database URL is set to ${DATABASE_URL}`);
   console.log(`Migrations would not be run`);
   console.log(`This database might be deleted after the tests are run`);
   console.log(`Type "unset" if you'd like to unset this variable`);
+
   const answer = rl.question(
     'Are you sure you want to continue?[y|yes|n|no|unset] ',
     {
@@ -40,7 +45,7 @@ if (DATABASE_URL && !CI) {
 
 // Set the image that @databases/pg-test should use for testing
 process.env.PG_TEST_IMAGE = 'circleci/postgres:11.6-alpine-ram';
-process.env.PG_TEST_DB = 'udupayTestDB';
+process.env.PG_TEST_DB = 'udupay';
 
 const jest = require('jest');
 
