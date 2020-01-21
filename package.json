@@ -55,7 +55,6 @@
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
     "@databases/pg-test": "1.0.3",
-    "@testing-library/cypress": "5.0.2",
     "@types/bcrypt": "^3.0.0",
     "@types/chalk-pipe": "^2.0.0",
     "@types/compression": "^1.0.1",
