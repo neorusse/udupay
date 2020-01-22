@@ -54,6 +54,11 @@ jobs:
       # Run typescript
       - run: echo "Compiling TypeScript to JavaScript"
       - run: yarn tsc
+
+      # run tests!
+      - run: echo "Running Migrations"
+      - run: yarn run db:migrate up
+
       # run tests!
       - run: echo "Testing API Routes"
       - run: yarn jest
