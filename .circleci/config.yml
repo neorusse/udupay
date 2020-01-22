@@ -93,3 +93,10 @@ jobs:
       - run:
           name: Run client tests
           command: cd client && yarn test
+
+workflows:
+  version: 2
+  Test Server and Client:
+    jobs:
+      - PREN Client
+      - PREN Server
