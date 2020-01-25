@@ -1,7 +1,7 @@
 import React from 'react';
 
-import FooterInfo from '../footer-info/footer-info';
-import FooterMedia from '../footer-media/footer-media';
+import FooterInfo from '../../components/footer-info/footer-info';
+import FooterMedia from '../../components/footer-media/footer-media';
 
 function Footer() {
   return (
