@@ -88,15 +88,9 @@ router.post(
         payload.is_admin,
       );
 
-      res
-        .header('x-auth-token', token)
-        .status(status)
-        .json({
-          status,
-          message,
-          success,
-          payload,
-        });
+      res.status(status).json({
+        token,
+      });
 
       return;
     } catch (error) {

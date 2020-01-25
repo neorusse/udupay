@@ -100,15 +100,9 @@ export async function login(req: Request, res: Response) {
       user[0].is_admin,
     );
 
-    res
-      .header('x-auth-token', token)
-      .status(200)
-      .json({
-        status: 200,
-        success: true,
-        message: 'User login successful',
-        user,
-      });
+    res.status(200).json({
+      token,
+    });
 
     return;
   } catch (error) {
