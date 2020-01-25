@@ -1,13 +1,55 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { logout } from '../../actions/authActions';
+
 import { useSpring, animated } from 'react-spring';
 
-const MobileMenu = ({ handleNavbar, navbarState }) => {
+const MobileMenu = ({
+  handleNavbar,
+  navbarState,
+  auth: { isAuthenticated },
+  logout,
+}) => {
   const { open } = useSpring({ open: navbarState ? 0 : 1 });
 
   if (navbarState === true) {
+    const guestLinks = (
+      <NavLinks>
+        <Link onClick={handleNavbar} to="/communities">
+          Communities
+        </Link>
+        <Link onClick={handleNavbar} to="/support">
+          Support
+        </Link>
+        <Link onClick={handleNavbar} to="/login">
+          Login
+        </Link>
+        <Link onClick={handleNavbar} to="/register">
+          Create Account
+        </Link>
+      </NavLinks>
+    );
+
+    const authLinks = (
+      <NavLinks>
+        <Link onClick={handleNavbar} to="/dashboard">
+          Dashboard
+        </Link>
+        <Link onClick={handleNavbar} to="/communities">
+          Communities
+        </Link>
+        <Link onClick={handleNavbar} to="/support">
+          Support
+        </Link>
+        <Link onClick={logout} to="/logout">
+          Logout
+        </Link>
+      </NavLinks>
+    );
+
     return (
       <MobileMenuContainer
         style={{
@@ -19,28 +61,20 @@ const MobileMenu = ({ handleNavbar, navbarState }) => {
             .interpolate(openValue => `translate3d(0, ${openValue}px, 0`),
         }}
       >
-        <NavLinks>
-          <Link onClick={handleNavbar} to="/communities">
-            Communities
-          </Link>
-          <Link onClick={handleNavbar} to="/support">
-            Support
-          </Link>
-          <Link onClick={handleNavbar} to="/login">
-            Login
-          </Link>
-          <Link onClick={handleNavbar} to="/register">
-            Create Account
-          </Link>
-        </NavLinks>
+        {<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>}
       </MobileMenuContainer>
     );
   }
   return null;
 };
 
-export default MobileMenu;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 
+export default connect(mapStateToProps, { logout })(MobileMenu);
+
+// Styles
 const MobileMenuContainer = styled(animated.div)`
   position: fixed;
   top: 8rem;

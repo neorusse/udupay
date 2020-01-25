@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { useSpring, config } from 'react-spring';
+
+import { logout } from '../../actions/authActions';
 
 import { ReactComponent as Logo } from '../../assets/udupay.svg';
 import BurgerMenu from './burger-menu';
@@ -15,7 +18,12 @@ import {
   NavLinkSignUp,
 } from './header.styles';
 
-function Header({ navbarState, handleNavbar }) {
+function Header({
+  navbarState,
+  handleNavbar,
+  auth: { isAuthenticated },
+  logout,
+}) {
   const barAnimation = useSpring({
     from: { transform: 'translate3d(0, -10rem, 0)' },
     transform: 'translate3d(0, 0, 0)',
@@ -28,6 +36,36 @@ function Header({ navbarState, handleNavbar }) {
     config: config.wobbly,
   });
 
+  const guestLinks = (
+    <>
+      <NavContainer style={linkAnimation}>
+        <NavLink to="/communities">Communities</NavLink>
+        <NavLink to="/support">Support</NavLink>
+        <NavLink to="/login">Login</NavLink>
+        <NavLinkSignUp to="/register">create account</NavLinkSignUp>
+      </NavContainer>
+      <BurgerWrapper>
+        <BurgerMenu navbarState={navbarState} handleNavbar={handleNavbar} />
+      </BurgerWrapper>
+    </>
+  );
+
+  const authLinks = (
+    <>
+      <NavContainer style={linkAnimation}>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/communities">Communities</NavLink>
+        <NavLink to="/support">Support</NavLink>
+        <NavLinkSignUp onClick={logout} to="/logout">
+          Logout
+        </NavLinkSignUp>
+      </NavContainer>
+      <BurgerWrapper>
+        <BurgerMenu navbarState={navbarState} handleNavbar={handleNavbar} />
+      </BurgerWrapper>
+    </>
+  );
+
   return (
     <>
       <HeaderContainer style={barAnimation}>
@@ -35,15 +73,8 @@ function Header({ navbarState, handleNavbar }) {
           <LogoContainer to="/">
             <Logo className="logo" />
           </LogoContainer>
-          <NavContainer style={linkAnimation}>
-            <NavLink to="/communities">Communities</NavLink>
-            <NavLink to="/support">Support</NavLink>
-            <NavLink to="/login">Login</NavLink>
-            <NavLinkSignUp to="/register">create account</NavLinkSignUp>
-          </NavContainer>
-          <BurgerWrapper>
-            <BurgerMenu navbarState={navbarState} handleNavbar={handleNavbar} />
-          </BurgerWrapper>
+
+          {<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>}
         </FlexContainer>
       </HeaderContainer>
       <MobileMenu navbarState={navbarState} handleNavbar={handleNavbar} />
@@ -51,4 +82,8 @@ function Header({ navbarState, handleNavbar }) {
   );
 }
 
-export default Header;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Header);
