@@ -1,6 +1,6 @@
-yarn --frozen-lockfile
+# yarn --frozen-lockfile
 
-yarn tsc
+# yarn tsc
 
 # cd client
 # export SKIP_PREFLIGHT_CHECK=true
