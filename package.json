@@ -9,15 +9,14 @@
     "dev": "nodemon --exec node bin/www",
     "ts:compile": "tsc --watch --preserveWatchOutput",
     "ts:build": "tsc",
-    "build": "yarn run ts:build",
     "prod:serve": "node dist/app.js",
-    "start": "yarn run build && yarn run prod:serve",
+    "start": "yarn run ts:build && yarn run prod:serve",
     "test": "node scripts/setup-tests.js",
     "test:ci": "jest --coverage",
     "test:integration": "cypress run",
     "cypress:open": "cypress open",
     "db:migrate": "node-pg-migrate",
-    "build:server:client": "bash -e scripts/build.sh"
+    "build": "bash -e scripts/build.sh"
   },
   "repository": {
     "type": "git",
@@ -90,7 +89,7 @@
     }
   },
   "engines": {
-    "node": "10.16.0"
+    "node": ">=10.0.0"
   },
   "pg": {
     "test": {
