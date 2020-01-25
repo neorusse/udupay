@@ -156,7 +156,7 @@ function SignUp({ setAlert, registerUser, isAuthenticated }) {
 
         <ExistingUser onClick={() => history.push('/login')}>
           <p>
-            Already have an account? <span>Sign in</span>
+            Have an account? <span>Sign in</span>
           </p>
         </ExistingUser>
       </FormContainer>
