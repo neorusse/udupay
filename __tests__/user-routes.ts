@@ -23,10 +23,7 @@ describe('POST user signup route', () => {
       .expect(res => {
         const resKeys = Object.keys(res.body);
         expect(res.status).toBe(201);
-        expect(resKeys).toContain('status');
-        expect(resKeys).toContain('success');
-        expect(resKeys).toContain('message');
-        expect(resKeys).toContain('payload');
+        expect(resKeys).toContain('token');
       });
   });
 
@@ -90,9 +87,7 @@ describe('POST user login route', () => {
       .expect(res => {
         const resKeys = Object.keys(res.body);
         expect(res.status).toBe(200);
-        expect(resKeys).toContain('status');
-        expect(resKeys).toContain('success');
-        expect(resKeys).toContain('message');
+        expect(resKeys).toContain('token');
       });
   });
 
