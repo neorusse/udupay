@@ -5,7 +5,7 @@ export const FooterInfoContainer = styled.div`
   justify-content: space-between;
   align-content: center;
   margin: 60px 0;
-  border-top: 1px solid rgba(240, 242, 243, 0.85);
+  border-bottom: 1px solid rgb(220, 220, 220);
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
