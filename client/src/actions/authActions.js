@@ -22,7 +22,7 @@ export const loadUser = () => async dispatch => {
   }
 
   try {
-    const res = await axios.get('/api/v1/users/me');
+    const res = await axios.get('https://udupay.herokuapp.com/api/v1/users/me');
     console.log('Login User Details', res.data);
     dispatch({
       type: USER_LOADED,
@@ -48,7 +48,11 @@ export const registerUser = userDetails => async dispatch => {
   const body = JSON.stringify(userDetails);
 
   try {
-    const res = await axios.post('/api/v1/users/signup', body, config);
+    const res = await axios.post(
+      'https://udupay.herokuapp.com/api/v1/users/signup',
+      body,
+      config,
+    );
     console.log('Registered', res.data);
     dispatch({
       type: REGISTER_SUCCESS,
@@ -82,7 +86,11 @@ export const login = (email, password) => async dispatch => {
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post('/api/v1/users/login', body, config);
+    const res = await axios.post(
+      'https://udupay.herokuapp.com/api/v1/users/login',
+      body,
+      config,
+    );
 
     console.log(res.data);
 
