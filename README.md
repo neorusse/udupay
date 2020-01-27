@@ -55,12 +55,41 @@ Pivotal Tracker - Pivotal Tracker is the agile project management tool of choice
 
 ### Installation
 
+Install packages
+
 ```bash
 yarn
-yarn run dev
+```
+
+Create .env file in your root directory and Change DATABASE_URL to suite your connection
+
+- Change user to your username
+- Change password to your postgresql password
+- Change database to 'udupay'
+- Then go to your postgresql database and create database with name 'udupay'
+
+```bash
+DATABASE_URL='postgresql://user:password@localhost/database'
+```
+
+Run the server with
+
+```bash
+yarn tsc
+yarn start
 ```
 
 The server runs on port 3050.
+
+Then run the client
+
+```bash
+cd client
+yarn
+yarn start
+```
+
+---
 
 ### Development
 
@@ -82,7 +111,7 @@ Code coverage generated using [Jest](https://jestjs.io/)
 
 #### API URL
 
-The API was hosted on Heroku and can be access via [UduPay](https://udupay.netlify.com/)
+The API was hosted on Heroku and can be access via [UduPay](https://udupay.herokuapp.com/)
 
 | S/N | HTTP VERB | ENDPOINT                          | FUNCTIONALITY                             |
 | --: | --------- | --------------------------------- | ----------------------------------------- |
