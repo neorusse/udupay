@@ -60,6 +60,7 @@ const MobileMenu = ({
             })
             .interpolate(openValue => `translate3d(0, ${openValue}px, 0`),
         }}
+        id="container"
       >
         {<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>}
       </MobileMenuContainer>
