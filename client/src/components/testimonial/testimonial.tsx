@@ -61,37 +61,39 @@ function Testimonial() {
   }, []);
 
   return (
-    <TestimonialContainer>
-      <CarouselList>
-        {reviews.map((review, index) => {
-          const { citation, name, quote } = review;
-          const count = index + 1;
-          return (
-            <CarouselItem
-              className={`${count === activeSlide ? ' active' : ''} ${
-                count < activeSlide ? ' left' : ''
-              } ${count > activeSlide ? ' right' : ''}
+    <div className="testimonial-bg">
+      <TestimonialContainer id="container">
+        <CarouselList>
+          {reviews.map((review, index) => {
+            const { citation, name, quote } = review;
+            const count = index + 1;
+            return (
+              <CarouselItem
+                className={`${count === activeSlide ? ' active' : ''} ${
+                  count < activeSlide ? ' left' : ''
+                } ${count > activeSlide ? ' right' : ''}
               `}
-              key={count}
-            >
-              <CarouselQuote>
-                <cite>
-                  <CarouselName>{name}</CarouselName>
-                  <CarouselCitation>{citation}</CarouselCitation>
-                </cite>
-                <p>"{quote}"</p>
-              </CarouselQuote>
-            </CarouselItem>
-          );
-        })}
-        <CarouselIndicator>
-          <CarouselDot className={`${activeSlide === 1 ? ' active' : ''}`} />
-          <CarouselDot className={`${activeSlide === 2 ? ' active' : ''}`} />
-          <CarouselDot className={`${activeSlide === 3 ? ' active' : ''}`} />
-          <CarouselDot className={`${activeSlide === 4 ? ' active' : ''}`} />
-        </CarouselIndicator>
-      </CarouselList>
-    </TestimonialContainer>
+                key={count}
+              >
+                <CarouselQuote>
+                  <cite>
+                    <CarouselName>{name}</CarouselName>
+                    <CarouselCitation>{citation}</CarouselCitation>
+                  </cite>
+                  <p>"{quote}"</p>
+                </CarouselQuote>
+              </CarouselItem>
+            );
+          })}
+          <CarouselIndicator>
+            <CarouselDot className={`${activeSlide === 1 ? ' active' : ''}`} />
+            <CarouselDot className={`${activeSlide === 2 ? ' active' : ''}`} />
+            <CarouselDot className={`${activeSlide === 3 ? ' active' : ''}`} />
+            <CarouselDot className={`${activeSlide === 4 ? ' active' : ''}`} />
+          </CarouselIndicator>
+        </CarouselList>
+      </TestimonialContainer>
+    </div>
   );
 }
 
