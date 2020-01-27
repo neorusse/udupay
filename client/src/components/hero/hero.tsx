@@ -14,7 +14,7 @@ import {
 
 const Hero: React.FC = () => {
   return (
-    <HeroContainer>
+    <HeroContainer id="container">
       <HeroCaption>
         <Heading>
           Simplified solution for <br></br> residential dues payment

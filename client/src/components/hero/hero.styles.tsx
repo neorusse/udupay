@@ -7,6 +7,7 @@ export const HeroContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding-bottom: 60px;
 
   @media screen and (min-width: 768px) {
     flex-direction: row;

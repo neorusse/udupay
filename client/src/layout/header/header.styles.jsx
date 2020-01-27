@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderContainer = styled(animated.nav)`
-  width: 100%;
   z-index: 1;
   margin-bottom: 25px;
   font-size: 1.7rem;
@@ -86,6 +85,7 @@ export const Line = styled.div`
   background-color: #09090e;
   margin: 2.5px;
   z-index: 9999;
+
   .line-color {
     z-index: 999999;
     color: #000;

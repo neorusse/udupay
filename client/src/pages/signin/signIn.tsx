@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import { login } from '../../actions/authActions';
 
+import { ReactComponent as Logo } from '../../assets/udupay.svg';
 import FormInput from '../../components/form-input/form-input';
 import CustomButton from '../../components/custom-button/custom-button';
 
@@ -13,9 +14,11 @@ import history from '../../utils/history';
 
 import {
   SigninContainer,
+  LogoContainer,
   Title,
   ExistingUser,
   FormContainer,
+  ImgDiv,
 } from './signin.styles';
 
 const btnStyle = {
@@ -52,51 +55,56 @@ function SignUp({ login, isAuthenticated }) {
   return (
     <SigninContainer>
       {' '}
-      <div className="svg">
-        {' '}
-        <img
-          src="https://res.cloudinary.com/dtziv0hyw/image/upload/v1579874297/register_pceklp.jpg"
-          alt="login"
-        />{' '}
-      </div>{' '}
+      <ImgDiv>
+        <div className="svg">
+          <img
+            src="https://res.cloudinary.com/dtziv0hyw/image/upload/v1579874297/register_pceklp.jpg"
+            alt="login"
+          />
+        </div>
+      </ImgDiv>
       <FormContainer>
-        {' '}
-        <Title>LOGIN</Title>{' '}
-        <form className="sign-in-form" onSubmit={handleSubmit}>
-          {' '}
-          <FormInput
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            label="Email"
-            autoComplete="off"
-            required
-          />{' '}
-          <FormInput
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            label="Password"
-            required
-          />{' '}
-          <CustomButton style={btnStyle} type="submit">
+        <div className="sign-in-form">
+          <LogoContainer to="/">
+            <Logo className="logo" />
+          </LogoContainer>
+          <Title>LOGIN</Title>{' '}
+          <form onSubmit={handleSubmit}>
             {' '}
-            SIGN IN{' '}
-          </CustomButton>{' '}
-        </form>{' '}
-        <ExistingUser onClick={() => history.push('/register')}>
-          {' '}
-          <p>
+            <FormInput
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              label="Email"
+              autoComplete="off"
+              required
+            />{' '}
+            <FormInput
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              label="Password"
+              required
+            />{' '}
+            <CustomButton style={btnStyle} type="submit">
+              {' '}
+              SIGN IN{' '}
+            </CustomButton>{' '}
+          </form>{' '}
+          <ExistingUser onClick={() => history.push('/register')}>
             {' '}
-            Don't have an account? <span>Register Here</span>
-          </p>{' '}
-        </ExistingUser>{' '}
-        <ExistingUser onClick={() => history.push('/forgetPassword')}>
-          {' '}
-          <span>Forget your password?</span>{' '}
-        </ExistingUser>{' '}
+            <p>
+              {' '}
+              Don't have an account? <span>Register Here</span>
+            </p>{' '}
+          </ExistingUser>{' '}
+          <ExistingUser onClick={() => history.push('/forgetPassword')}>
+            {' '}
+            <span>Forget your password?</span>{' '}
+          </ExistingUser>{' '}
+        </div>
       </FormContainer>{' '}
     </SigninContainer>
   );

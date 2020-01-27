@@ -9,11 +9,13 @@ import {
   updateUserToken,
   updateUserPassword,
 } from '../helpers/userQueryBuilder';
+
 import {
   hashPassword,
   comparePassword,
   generateToken,
 } from '../helpers/appService';
+
 import { sendEmail } from '../utils/sendEmail';
 
 /**
@@ -202,6 +204,7 @@ export async function resetPassword(req: Request, res: Response) {
 
   // hashing the user password
   const hashedPassword = await hashPassword(password);
+
   try {
     // send email
     await updateUserPassword(user[0].id, hashedPassword);
@@ -258,6 +261,7 @@ export async function updatePassword(req: any, res: Response) {
 
   // hashing the user password
   const hashedPassword = await hashPassword(newPassword);
+
   try {
     // send email
     await updateUserPassword(user[0].id, hashedPassword);

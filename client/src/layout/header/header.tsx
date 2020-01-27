@@ -68,7 +68,7 @@ function Header({
 
   return (
     <>
-      <HeaderContainer style={barAnimation}>
+      <HeaderContainer style={barAnimation} id="container">
         <FlexContainer>
           <LogoContainer to="/">
             <Logo className="logo" />
