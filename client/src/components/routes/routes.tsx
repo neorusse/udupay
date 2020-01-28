@@ -7,6 +7,7 @@ import SignUp from '../../pages/signup/signUp';
 import Dashboard from '../../pages/dashboard/dashboard';
 import Header from '../../layout/header/header';
 import Footer from '../../layout/footer/footer';
+import Alert from '../alert/alert';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -25,6 +26,7 @@ const Routes = withRouter(({ location }) => {
         (['/'].includes(location.pathname) && (
           <Header navbarState={navbarOpen} handleNavbar={handleNavbar} />
         ))}
+      <Alert />
       <Switch>
         <Route path="/register" component={SignUp} />
         <Route exact path="/login" component={SignIn} />

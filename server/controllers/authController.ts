@@ -88,7 +88,7 @@ export async function login(req: Request, res: Response) {
     res.status(401).json({
       status: 401,
       success: false,
-      message: 'Authentication failed',
+      message: 'Invalid Email or Password',
     });
 
     return;

@@ -1,6 +1,6 @@
 # [UduP@y App](https://udupay.netlify.com/) :credit_card:
 
-[![UduPay](https://circleci.com/gh/neorusse/udupay.svg?style=svg)](https://circleci.com/gh/neorusse/workflows/udupay) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![UduPay](https://circleci.com/gh/neorusse/udupay.svg?style=svg)](https://circleci.com/gh/neorusse/workflows/udupay) [![Netlify Status](https://api.netlify.com/api/v1/badges/6deb6540-d4a1-4dae-94f4-f752c70d20d8/deploy-status)](https://app.netlify.com/sites/udupay/deploys) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Project Description
 
