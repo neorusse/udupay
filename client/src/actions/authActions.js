@@ -5,9 +5,9 @@ import { setAlert } from '../actions/alertActions';
 import {
   USER_LOADED,
   REGISTER_SUCCESS,
+  REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  GET_ERRORS,
   AUTH_ERROR,
   CLEAR_PROFILE,
   LOGOUT,
@@ -23,7 +23,7 @@ export const loadUser = () => async dispatch => {
 
   try {
     const res = await axios.get('https://udupay.herokuapp.com/api/v1/users/me');
-    console.log('Login User Details', res.data);
+
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -53,7 +53,7 @@ export const registerUser = userDetails => async dispatch => {
       body,
       config,
     );
-    console.log('Registered', res.data);
+
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
@@ -62,13 +62,12 @@ export const registerUser = userDetails => async dispatch => {
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.message;
-    console.log(err.message, errors);
+
     if (errors) {
       dispatch(setAlert(errors, 'danger'));
     }
     dispatch({
-      type: GET_ERRORS,
-      payload: err.message,
+      type: REGISTER_FAIL,
     });
   }
 };
@@ -92,8 +91,6 @@ export const login = (email, password) => async dispatch => {
       config,
     );
 
-    console.log(res.data);
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -102,7 +99,7 @@ export const login = (email, password) => async dispatch => {
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.message;
-    console.log(err.message, errors);
+
     if (errors) {
       dispatch(setAlert(errors, 'danger'));
     }
