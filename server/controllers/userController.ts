@@ -1,6 +1,6 @@
-import { Response } from "express";
+import { Response } from 'express';
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 import {
   getUserById,
@@ -9,12 +9,12 @@ import {
   updateUserPassword,
   updateUserPhoto,
   deleteUserById,
-  permDeleteUserById
-} from "../helpers/userQueryBuilder";
-import { getDueIdByAmt } from "../helpers/dueQueryBuilder";
-import { insertDuePayment } from "../helpers/paymentQueryBuilder";
+  permDeleteUserById,
+} from '../helpers/userQueryBuilder';
+import { getDueIdByAmt } from '../helpers/dueQueryBuilder';
+import { insertDuePayment } from '../helpers/paymentQueryBuilder';
 
-import { hashPassword, comparePassword } from "../helpers/appService";
+import { hashPassword, comparePassword } from '../helpers/appService';
 
 /**
  * Get a single user
@@ -30,15 +30,15 @@ export async function getMe(userId: string) {
     return {
       status: 404,
       success: false,
-      message: "User with Id not found"
+      message: 'User with Id not found',
     };
   }
 
   return {
     status: 200,
     success: true,
-    message: "user successfully retrieved",
-    user
+    message: 'user successfully retrieved',
+    user,
   };
 }
 
@@ -58,7 +58,7 @@ export async function updateMe(req: any, res: Response) {
     res.status(400).json({
       status: 400,
       success: false,
-      message: "Invalid password"
+      message: 'Invalid password',
     });
 
     return;
@@ -68,7 +68,7 @@ export async function updateMe(req: any, res: Response) {
     res.status(401).json({
       status: 401,
       success: false,
-      message: "Passwords do not match"
+      message: 'Passwords do not match',
     });
 
     return;
@@ -83,14 +83,14 @@ export async function updateMe(req: any, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "Password update successfully"
+      message: 'Password update successfully',
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -98,7 +98,7 @@ export async function updateMe(req: any, res: Response) {
 }
 
 /**
- * Update a user - Phtot Upload
+ * Update a user - Photo Upload
  * @param {object} req
  * @param {object} res
  * @returns {object} Sucess object
@@ -108,7 +108,7 @@ export async function uploadPhoto(req: any, res: Response) {
     res.status(404).json({
       status: 404,
       success: false,
-      message: "Please upload photo"
+      message: 'Please upload photo',
     });
 
     return;
@@ -120,14 +120,14 @@ export async function uploadPhoto(req: any, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "Photo upload successfull"
+      message: 'Photo upload successfully',
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -146,8 +146,8 @@ export async function deleteMe(userId: string) {
   return {
     status: 204,
     success: true,
-    message: "user successfully deleted",
-    user
+    message: 'user successfully deleted',
+    user,
   };
 }
 
@@ -166,15 +166,15 @@ export async function getAllUsers(req: any, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "All users fetched successfully",
-      allUsers
+      message: 'All users fetched successfully',
+      allUsers,
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -198,7 +198,7 @@ export async function getAUser(req: any, res: Response) {
       res.status(404).json({
         status: 404,
         success: false,
-        message: "User does not exist"
+        message: 'User does not exist',
       });
 
       return;
@@ -207,15 +207,15 @@ export async function getAUser(req: any, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "User fetched successfully",
-      user
+      message: 'User fetched successfully',
+      user,
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -237,15 +237,15 @@ export async function deleteAUser(req: any, res: Response) {
     res.status(204).json({
       status: 204,
       success: true,
-      message: "User deleted successfully",
-      user
+      message: 'User deleted successfully',
+      user,
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -272,7 +272,7 @@ export async function searchUser(req: any, res: Response) {
       res.status(404).json({
         status: 404,
         success: false,
-        message: "User does not exist"
+        message: 'User does not exist',
       });
 
       return;
@@ -281,15 +281,15 @@ export async function searchUser(req: any, res: Response) {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "User fetched successfully",
-      user
+      message: 'User fetched successfully',
+      user,
     });
 
     return;
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal Server Error"
+      message: 'Internal Server Error',
     });
 
     return;
@@ -309,7 +309,7 @@ export async function duePayment(req: any, res: Response) {
   const body = {
     source: req.body.token.id,
     amount: req.body.amount,
-    currency: "usd"
+    currency: 'usd',
   };
 
   // Make payment charge to stripe
@@ -323,7 +323,7 @@ export async function duePayment(req: any, res: Response) {
       res.status(200).json({
         status: 200,
         success: stripeRes,
-        message: "Due Payment Successfully Made"
+        message: 'Due Payment Successfully Made',
       });
     }
   });
