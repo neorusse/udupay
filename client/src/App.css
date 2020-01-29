@@ -70,6 +70,21 @@ a:hover {
   background-color: #f9f9f9;
 }
 
+.form-select {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0.75rem;
+  margin: 16px 0;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  color: #55595c;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
 /* footer styles */
 .footer-bg {
   padding: 50px 0;
