@@ -56,7 +56,7 @@ function Header({
         <NavLink to="/dashboard">Dashboard</NavLink>
         <NavLink to="/communities">Communities</NavLink>
         <NavLink to="/support">Support</NavLink>
-        <NavLinkSignUp onClick={logout} to="/logout">
+        <NavLinkSignUp onClick={logout} to="/">
           Logout
         </NavLinkSignUp>
       </NavContainer>
