@@ -10,4 +10,9 @@ export const AlertContainer = styled.div`
     background: #dc3545;
     color: #fff;
   }
+
+  &.alert-success {
+    background: #008000;
+    color: #fff;
+  }
 `;
