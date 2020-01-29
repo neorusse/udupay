@@ -16,7 +16,6 @@ import {
   getAUser,
   deleteAUser,
   searchUser,
-  duePayment,
   uploadPhoto,
 } from '../controllers/userController';
 import { uploadUserPhoto, resizeUserPhoto } from '../middleware/photoUpload';
@@ -127,9 +126,6 @@ router.use(auth);
 router.patch('/updatePassword', updatePassword);
 
 /** LOGGED-IN USER ROUTE */
-
-// search for a user
-router.post('/payment', duePayment);
 
 // get details of a logged-in user
 router.get('/me', async (req: any, res: Response) => {
