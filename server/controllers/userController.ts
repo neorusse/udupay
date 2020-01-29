@@ -1,7 +1,5 @@
 import { Response } from 'express';
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
 import {
   getUserById,
   fetchAllUsers,
@@ -11,8 +9,6 @@ import {
   deleteUserById,
   permDeleteUserById,
 } from '../helpers/userQueryBuilder';
-import { getDueIdByAmt } from '../helpers/dueQueryBuilder';
-import { insertDuePayment } from '../helpers/paymentQueryBuilder';
 
 import { hashPassword, comparePassword } from '../helpers/appService';
 
@@ -294,37 +290,4 @@ export async function searchUser(req: any, res: Response) {
 
     return;
   }
-}
-
-/**
- * Handles due payment
- * @param {object} req
- * @param {object} res
- * @returns {object} Success object
- */
-
-export async function duePayment(req: any, res: Response) {
-  const dueId = getDueIdByAmt(req.body.amount);
-
-  const body = {
-    source: req.body.token.id,
-    amount: req.body.amount,
-    currency: 'usd',
-  };
-
-  // Make payment charge to stripe
-  stripe.charges.create(body, async (stripeErr: any, stripeRes: any) => {
-    if (stripeErr) {
-      res.status(500).json({ error: stripeErr });
-    } else {
-      // write payment to database
-      await insertDuePayment(req.user.userId, dueId);
-
-      res.status(200).json({
-        status: 200,
-        success: stripeRes,
-        message: 'Due Payment Successfully Made',
-      });
-    }
-  });
 }

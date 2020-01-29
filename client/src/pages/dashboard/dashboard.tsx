@@ -24,7 +24,7 @@ function Dashboard({ dashTabElem, userDetails, logout }) {
       <div>
         <Support>
           <p>Support/Help</p>
-          <LogoutLink onClick={logout} to="/logout">
+          <LogoutLink onClick={logout} to="/">
             Logout
           </LogoutLink>
         </Support>

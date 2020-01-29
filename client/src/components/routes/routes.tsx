@@ -8,6 +8,7 @@ import Dashboard from '../../pages/dashboard/dashboard';
 import Header from '../../layout/header/header';
 import Footer from '../../layout/footer/footer';
 import Alert from '../alert/alert';
+import Payment from '../../pages/payment/payment';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -32,6 +33,7 @@ const Routes = withRouter(({ location }) => {
         <Route exact path="/login" component={SignIn} />
         <Route exact path="/" component={HomePage} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/dashboard/payment" component={Payment} />
       </Switch>
       {['/login', '/signup', '/dashboard', '/forgot-password'].includes(
         location.pathname,
