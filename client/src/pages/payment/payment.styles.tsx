@@ -1,23 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const DashContainer = styled.div`
-  max-width: 800px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-  grid-gap: 1rem;
-  margin: 80px auto;
-  justify-items: center;
-  cursor: pointer;
-  color: #0f1c70;
-
-  @media (max-width: 550px) {
-    grid-template-columns: repeat(1, 1fr);
-    margin: 40px auto;
-  }
-`;
-
 export const Nav = styled.div`
   display: flex;
   justify-content: space-between;
