@@ -22,3 +22,4 @@ export const LOAD_DUES = 'LOAD_DUES';
 export const DUES_ERRORS = 'DUES_ERRORS';
 
 export const DUE_PAYMENT = 'DUE_PAYMENT';
+export const LOAD_DUE_PAYMENT = 'LOAD_DUE_PAYMENT';
