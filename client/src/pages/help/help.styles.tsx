@@ -1,45 +1,22 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Nav = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+// export const DashContainer = styled.div`
+//   max-width: 800px;
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   grid-template-rows: auto;
+//   grid-gap: 1rem;
+//   margin: 80px auto;
+//   justify-items: center;
+//   cursor: pointer;
+//   color: #0f1c70;
 
-  p {
-    padding-right: 20px;
-    color: #0f1c70;
-    font-weight: 600;
-    font-size: 14px;
-  }
-
-  @media (max-width: 650px) {
-    margin-top: 30px;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-
-    p {
-      padding-right: 0px;
-    }
-
-    LogoContainer {
-      padding-left: 0px;
-    }
-  }
-`;
-
-export const PayContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  max-width: 450px;
-  margin 0 auto;
-  padding: 1.3em 1.85em;
-  background: #fbfbfb;
-  border-radius: 4px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.16), 0 1px 9px rgba(0, 0, 0, 0.08);
-  }
-`;
+//   @media (max-width: 550px) {
+//     grid-template-columns: repeat(1, 1fr);
+//     margin: 40px auto;
+//   }
+// `;
 
 export const LogoContainer = styled(Link)`
   height: 100%;
@@ -79,6 +56,34 @@ export const Support = styled.div`
 
    & p:hover {
     color: #f5a623;
+  }
+`;
+
+export const Nav = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    padding-right: 20px;
+    color: #0f1c70;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  @media (max-width: 650px) {
+    margin-top: 30px;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    p {
+      padding-right: 0px;
+    }
+
+    LogoContainer {
+      padding-left: 0px;
+    }
   }
 `;
 

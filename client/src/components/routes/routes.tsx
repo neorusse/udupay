@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter, Switch, Route } from 'react-router-dom';
 
+// componenets
 import HomePage from '../../pages/home/home';
 import SignIn from '../../pages/signin/signIn';
 import SignUp from '../../pages/signup/signUp';
@@ -9,6 +10,9 @@ import Header from '../../layout/header/header';
 import Footer from '../../layout/footer/footer';
 import Alert from '../alert/alert';
 import Payment from '../../pages/payment/payment';
+import PaymentHistory from '../../pages/payment-history/payment-history';
+import Help from '../../pages/help/help';
+import Profile from '../../pages/profile/profile';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -34,6 +38,13 @@ const Routes = withRouter(({ location }) => {
         <Route exact path="/" component={HomePage} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/dashboard/payment" component={Payment} />
+        <PrivateRoute exact path="/dashboard/support" component={Help} />
+        <PrivateRoute exact path="/dashboard/profile" component={Profile} />
+        <PrivateRoute
+          exact
+          path="/dashboard/paymenthistory"
+          component={PaymentHistory}
+        />
       </Switch>
       {['/login', '/signup', '/dashboard', '/forgot-password'].includes(
         location.pathname,

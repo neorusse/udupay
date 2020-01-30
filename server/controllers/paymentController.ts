@@ -44,12 +44,10 @@ export async function insertPayment(req: Request, res: Response) {
  * @returns {object} due success object
  */
 
-export async function getPayments(req: Request, res: Response) {
-  const { userId } = req.body;
-
+export async function getPayments(req: any, res: Response) {
   try {
     // Read from payment table
-    const due = await getDuePayment(userId);
+    const due = await getDuePayment(req.user.userId);
 
     res.status(200).json({
       status: 200,
