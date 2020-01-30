@@ -1,10 +1,13 @@
 import { Router } from 'express';
 
-import { insertPayment } from '../controllers/paymentController';
+import { insertPayment, getPayments } from '../controllers/paymentController';
 
 const router = Router();
 
-// search for a user
+// write payments to db
 router.post('/', insertPayment);
+
+// write payments to db
+router.get('/', getPayments);
 
 export default router;
