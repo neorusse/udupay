@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { logout } from '../../actions/authActions';
@@ -16,7 +16,12 @@ import {
   FooterCopyright,
 } from './payment-history.styles';
 
-function PaymentHistory({ userDetails, loadDuesPaid, logout }) {
+function PaymentHistory({
+  userDetails,
+  loadDuesPaid,
+  logout,
+  payment: { paid, loading },
+}) {
   useEffect(() => {
     loadDuesPaid();
   }, [loadDuesPaid]);
@@ -45,6 +50,32 @@ function PaymentHistory({ userDetails, loadDuesPaid, logout }) {
         </Nav>
       </div>
 
+      <Fragment>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className="row mt-4">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Payment Type</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody className="table-body">
+                {paid.due.map((due, i) => (
+                  <tr key={i} className="table-body">
+                    <td>{due.created_at}</td>
+                    <td>{due.name}</td>
+                    <td>{due.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </Fragment>
       <FooterCopyright>
         <p>UduPay. © 2020</p>
       </FooterCopyright>
@@ -55,6 +86,7 @@ function PaymentHistory({ userDetails, loadDuesPaid, logout }) {
 const mapStateToProps = state => ({
   dashTabElem: state.dashboard.tabs,
   userDetails: state.auth.user,
+  payment: state.payment,
 });
 
 export default connect(mapStateToProps, { loadDuesPaid, logout })(
