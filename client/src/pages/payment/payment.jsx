@@ -89,12 +89,24 @@ function Payment({
     setAmount(dueDetail.value);
     setDueId(dueDetail.dueId);
     setName(dueDetail.name);
+  };
 
-    //console.log(userDetails.user[0].id, dueDetail.dueId);
+  const extractDate = () => {
+    let currentDate = new Date();
+
+    let date = currentDate.getDate();
+    let month = currentDate.getMonth();
+    let year = currentDate.getFullYear();
+
+    let dateString = year + '-' + (month + 1) + '-' + date;
+
+    return dateString;
   };
 
   // Called when payment is successfull
   const redirectUri = () => {
+    let paymentDate = extractDate();
+    console.log(paymentDate);
     insertPayment(userDetails.user[0].id, dueId);
     return <Redirect to="/dashboard" />;
   };

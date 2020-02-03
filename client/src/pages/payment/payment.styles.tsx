@@ -38,6 +38,11 @@ export const PayContainer = styled.div`
   background: #fbfbfb;
   border-radius: 4px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.16), 0 1px 9px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 500px) {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
   }
 `;
 
