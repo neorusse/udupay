@@ -87,6 +87,16 @@ export const Nav = styled.div`
   }
 `;
 
+export const PaymentList = styled.div`
+  max-width: 900px;
+  margin: 60px auto;
+
+  @media (max-width: 775px) {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+`;
+
 export const FooterCopyright = styled.div`
   width: 100%;
   height: 40px
