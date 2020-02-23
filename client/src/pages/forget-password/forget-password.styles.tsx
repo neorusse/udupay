@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const RegisterContainer = styled.div`
+export const SigninContainer = styled.div`
   display: grid;
   grid-gap: 1px;
   grid-template-columns: 2fr 1fr;
@@ -35,11 +35,15 @@ export const RegisterContainer = styled.div`
 
 export const LogoContainer = styled(Link)`
   height: 100%;
-  padding-top: 20px;
+  padding: 20px;
 
   & .logo {
     margin-bottom: 20px;
   }
+`;
+
+export const Title = styled.h3`
+  color: #fff;
 `;
 
 export const FormContainer = styled.div`
@@ -55,19 +59,18 @@ export const FormContainer = styled.div`
   color: #fff;
 `;
 
-export const RegisterTitle = styled.h3`
-  color: #fff;
-`;
-
 export const ExistingUser = styled.div`
   font-weight: 600;
   margin: 3px 0;
   text-align: center;
-  color: #fff;
 
   span {
     cursor: pointer;
     color: #f5a623;
+  }
+
+  @media (max-width: 800px) {
+    font-size: 14px;
   }
 `;
 

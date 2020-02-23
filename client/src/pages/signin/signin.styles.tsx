@@ -36,6 +36,10 @@ export const SigninContainer = styled.div`
 export const LogoContainer = styled(Link)`
   height: 100%;
   padding-top: 20px;
+
+  & .logo {
+    margin-bottom: 20px;
+  }
 `;
 
 export const Title = styled.h3`

@@ -1,5 +1,3 @@
-@import '~antd/dist/antd.css';
-
 *,
 *::after,
 *::before {
@@ -50,7 +48,7 @@ p {
 
 .sign-up-form,
 .sign-in-form {
-  margin-top: 60px;
+  margin-top: 70px;
   width: 100%;
   padding: 3px 70px;
   text-align: center;
@@ -89,6 +87,39 @@ p {
   border-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
+}
+
+/* Payment History Table styles */
+.tftable {
+  font-size: 24px;
+  color: #333333;
+  padding: 16px;
+  width: 100%;
+  border-bottom: 1px solid #e8e8e8;
+  border-collapse: collapse;
+}
+
+.tftable th {
+  font-size: 15px;
+  background-color: #e8e8e8;
+  border-width: 1px;
+  padding: 16px;
+  border-bottom: 1px solid #e8e8e8;
+  text-align: left;
+}
+
+.tftable tr {
+  background-color: #ffffff;
+}
+
+.tftable td {
+  font-size: 14px;
+  padding: 16px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.tftable tr:hover {
+  background-color: #fafafa;
 }
 
 /* footer styles */

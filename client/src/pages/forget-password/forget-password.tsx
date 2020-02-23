@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { login } from '../../actions/authActions';
+import { forgetPassword } from '../../actions/authActions';
 
 import { ReactComponent as Logo } from '../../assets/udupay.svg';
 import FormInput from '../../components/form-input/form-input';
@@ -19,20 +19,19 @@ import {
   ExistingUser,
   FormContainer,
   ImgDiv,
-} from './signin.styles';
+} from './forget-password.styles';
 
 const btnStyle = {
   margin: '35px 0',
   width: '100%',
 };
 
-function SignUp({ login, isAuthenticated }) {
+function ForgetPassword({ forgetPassword, isAuthenticated }) {
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
   });
 
-  const { email, password } = formData;
+  const { email } = formData;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -44,12 +43,12 @@ function SignUp({ login, isAuthenticated }) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    login(email, password);
+    forgetPassword(email);
   };
 
   // redirect user to his dashboard
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/login" />;
   }
 
   return (
@@ -68,7 +67,7 @@ function SignUp({ login, isAuthenticated }) {
           <LogoContainer to="/">
             <Logo className="logo" />
           </LogoContainer>
-          <Title>LOGIN</Title>{' '}
+          <Title>REQUEST PASSWORD RESET</Title>{' '}
           <form onSubmit={handleSubmit}>
             {' '}
             <FormInput
@@ -80,29 +79,17 @@ function SignUp({ login, isAuthenticated }) {
               autoComplete="off"
               required
             />{' '}
-            <FormInput
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-              label="Password"
-              required
-            />{' '}
             <CustomButton style={btnStyle} type="submit">
               {' '}
-              SIGN IN{' '}
+              Request Reset{' '}
             </CustomButton>{' '}
           </form>{' '}
-          <ExistingUser onClick={() => history.push('/register')}>
+          <ExistingUser onClick={() => history.push('/login')}>
             {' '}
             <p>
               {' '}
-              Don't have an account? <span>Register Here</span>
+              Remember your password? <span>Login</span>
             </p>{' '}
-          </ExistingUser>{' '}
-          <ExistingUser onClick={() => history.push('/forgotPassword')}>
-            {' '}
-            <span>Forget your password?</span>{' '}
           </ExistingUser>{' '}
         </div>
       </FormContainer>{' '}
@@ -115,5 +102,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  login,
-})(SignUp);
+  forgetPassword,
+})(ForgetPassword);

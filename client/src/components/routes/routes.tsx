@@ -5,6 +5,7 @@ import { withRouter, Switch, Route } from 'react-router-dom';
 import HomePage from '../../pages/home/home';
 import SignIn from '../../pages/signin/signIn';
 import SignUp from '../../pages/signup/signUp';
+import ForgetPassword from '../../pages/forget-password/forget-password';
 import Dashboard from '../../pages/dashboard/dashboard';
 import Header from '../../layout/header/header';
 import Footer from '../../layout/footer/footer';
@@ -25,7 +26,7 @@ const Routes = withRouter(({ location }) => {
 
   return (
     <>
-      {['/login', '/signup', '/dashboard', '/forgot-password'].includes(
+      {['/login', '/signup', '/dashboard', '/forgotPassword'].includes(
         location.pathname,
       ) ||
         (['/'].includes(location.pathname) && (
@@ -33,9 +34,10 @@ const Routes = withRouter(({ location }) => {
         ))}
       <Alert />
       <Switch>
+        <Route exact path="/" component={HomePage} />
         <Route path="/register" component={SignUp} />
         <Route exact path="/login" component={SignIn} />
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/forgotPassword" component={ForgetPassword} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/dashboard/payment" component={Payment} />
         <PrivateRoute exact path="/dashboard/support" component={Help} />
@@ -46,7 +48,7 @@ const Routes = withRouter(({ location }) => {
           component={PaymentHistory}
         />
       </Switch>
-      {['/login', '/signup', '/dashboard', '/forgot-password'].includes(
+      {['/login', '/signup', '/dashboard', '/forgotPassword'].includes(
         location.pathname,
       ) ||
         (['/'].includes(location.pathname) && <Footer />)}
