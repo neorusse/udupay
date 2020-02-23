@@ -1,23 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-// export const DashContainer = styled.div`
-//   max-width: 800px;
-//   display: grid;
-//   grid-template-columns: repeat(2, 1fr);
-//   grid-template-rows: auto;
-//   grid-gap: 1rem;
-//   margin: 80px auto;
-//   justify-items: center;
-//   cursor: pointer;
-//   color: #0f1c70;
-
-//   @media (max-width: 550px) {
-//     grid-template-columns: repeat(1, 1fr);
-//     margin: 40px auto;
-//   }
-// `;
-
 export const LogoContainer = styled(Link)`
   height: 100%;
   padding-left: 20px;
@@ -87,9 +70,56 @@ export const Nav = styled.div`
   }
 `;
 
+export const SearchField = styled.div`
+  position: relative;
+  display: flex;
+  min-width: 100px;
+  margin-bottom: 20px;
+
+  .search {
+    border: 2px solid #e8e8e8;
+    border-radius: 4px;
+    height: 32px;
+    width: 300px;
+    padding: 2px 23px 2px 30px;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 14px;
+  }
+
+  .clear-icon {
+    position: absolute;
+    top: 9px;
+    right: 8px;
+    width: 12px;
+    cursor: pointer;
+    visibility: hidden;
+  }
+
+  .search:hover,
+  .search:focus {
+    border: 1px solid gray;
+    background-color: white;
+  }
+`;
+
+export const Divider = styled.div`
+  margin: 24px 0;
+  border-bottom: 1px solid #e8e8e8;
+`;
+
 export const PaymentList = styled.div`
   max-width: 900px;
   margin: 60px auto;
+
+  p {
+    font-size: 18px;
+    font-weight: 600;
+  }
 
   @media (max-width: 775px) {
     margin-right: 10px;
