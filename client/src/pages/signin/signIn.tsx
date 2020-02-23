@@ -100,7 +100,7 @@ function SignUp({ login, isAuthenticated }) {
               Don't have an account? <span>Register Here</span>
             </p>{' '}
           </ExistingUser>{' '}
-          <ExistingUser onClick={() => history.push('/forgetPassword')}>
+          <ExistingUser onClick={() => history.push('/forgotPassword')}>
             {' '}
             <span>Forget your password?</span>{' '}
           </ExistingUser>{' '}
