@@ -105,6 +105,20 @@ To execute tests:
 yarn test
 ```
 
+### Credit Card details for making demo payment
+
+---
+
+Test MasterCard PIN authentication
+
+    5531 8866 5214 2950
+    cvv 564
+    Expiry: 09/22
+    Pin 3310
+    otp 12345
+
+---
+
 Code coverage generated using [Jest](https://jestjs.io/)
 
 ### API End Points
