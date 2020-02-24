@@ -22,6 +22,7 @@ import { uploadUserPhoto, resizeUserPhoto } from '../middleware/photoUpload';
 
 import { hashPassword, generateToken } from '../helpers/appService';
 import { auth, adminAuth } from '../middleware/auth';
+import sendSignUpMail from '../utils/sendSignUpMail';
 
 const router = Router();
 
@@ -87,6 +88,9 @@ router.post(
         payload.is_admin,
       );
 
+      // send welcome email
+      await sendSignUpMail(payload.email);
+
       res.status(status).json({
         token,
       });
@@ -110,7 +114,7 @@ router.post(
  * @returns {object} Pod object
  */
 
-// forget password route
+// login route
 router.post('/login', validateLogin(), validate, login);
 
 // forget password route
