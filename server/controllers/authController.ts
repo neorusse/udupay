@@ -16,7 +16,7 @@ import {
   generateToken,
 } from '../helpers/appService';
 
-import { sendEmail } from '../utils/sendEmail';
+import sendForgetPasswordMail from '../utils/sendForgetPasswordMail';
 
 /**
  * User Signup
@@ -149,8 +149,8 @@ export async function forgetPassword(req: Request, res: Response) {
   await updateUserToken(user[0].id, token);
 
   try {
-    // send email
-    await sendEmail(user[0].email, token);
+    // send forget password email
+    await sendForgetPasswordMail(user[0].email, token);
 
     res.status(200).json({
       status: 200,
