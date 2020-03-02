@@ -1,5 +1,5 @@
-import db from "../utils/dbConnect";
-import { sql } from "@databases/pg";
+import db from '../utils/dbConnect';
+import { sql } from '@databases/pg';
 
 // Retrieve all users
 export async function fetchAllUsers(id: string) {
@@ -32,9 +32,9 @@ export async function getUserByToken(token: string) {
 // Retrieve a user searched for
 export async function getSearchUser(id: string, value: string) {
   return await db.query(sql`
-    SELECT * FROM users WHERE NOT id=${id} AND first_name LIKE ${"%" +
+    SELECT * FROM users WHERE NOT id=${id} AND first_name LIKE ${'%' +
     value +
-    "%"} OR last_name LIKE ${"%" + value + "%"}
+    '%'} OR last_name LIKE ${'%' + value + '%'}
   `);
 }
 
@@ -46,11 +46,29 @@ export async function insertUser(
   password: string,
   street: string,
   city: string,
-  phone: string
+  phone: string,
 ) {
   return await db.query(sql`
     INSERT INTO users (first_name, last_name, email, password, street, city, phone)
     VALUES (${first_name}, ${last_name}, ${email}, ${password}, ${street}, ${city}, ${phone})
+    RETURNING id, first_name, last_name, email, street, city, phone, photo, is_admin, is_active;
+  `);
+}
+
+// Insert Admin
+export async function insertAdmin(
+  first_name: string,
+  last_name: string,
+  email: string,
+  password: string,
+  street: string,
+  city: string,
+  phone: string,
+  is_admin: boolean,
+) {
+  return await db.query(sql`
+    INSERT INTO users (first_name, last_name, email, password, street, city, phone, is_admin)
+    VALUES (${first_name}, ${last_name}, ${email}, ${password}, ${street}, ${city}, ${phone}, ${is_admin})
     RETURNING id, first_name, last_name, email, street, city, phone, photo, is_admin, is_active;
   `);
 }
@@ -92,6 +110,6 @@ export async function deleteUserById(userId: string) {
 // permanantly delete a user
 export async function permDeleteUserById(userId: string) {
   return await db.query(
-    sql`DELETE FROM users WHERE id=${userId} AND is_active=${false}`
+    sql`DELETE FROM users WHERE id=${userId} AND is_active=${false}`,
   );
 }
