@@ -1,0 +1,18 @@
+# use node alpine to build app for production
+FROM node:12-alpine
+
+# container dir we want to work from
+WORKDIR /client
+
+# copy package.json file to container /client dir
+COPY package.json .
+
+# install project dependencies
+RUN yarn
+
+# copy all files from dev root dir to container root dir - /client
+COPY . .
+
+# command to execute by default when build image is launched
+CMD [ "yarn", "start" ]
+
