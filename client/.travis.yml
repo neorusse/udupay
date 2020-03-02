@@ -12,7 +12,7 @@ before_install:
 # Tell Travis to execute tests (-- -- Coverage will exit npm run test and print out the code coverage)
 script:
   # run test
-  - docker run ecoden/udupay npm run test -- --coverage
+  - docker run -e CI=true ecoden/udupay npm run test
 
 deploy:
   #specify the provider
