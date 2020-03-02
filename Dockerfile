@@ -1,11 +1,11 @@
-# use node latest version image
-FROM node:latest
+# use node alpine image
+FROM node:12-alpine
 
 # container dir we want to work from
 WORKDIR /usr/src/udupay-api
 
 # copy all files from dev root dir to container root dir - /usr/src/udupay-api
-COPY ./ ./
+COPY . .
 
 # npm scpript to run in the container
 RUN yarn

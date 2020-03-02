@@ -1,0 +1,37 @@
+# enable super user level permission for docker
+sudo: required
+
+services:
+  # use docker
+  - docker
+
+  #Tell Travis that before executing the script, create the docker image from the Dockerfile.dev.
+before_install:
+  - docker build -t ecoden/udupay -f Dockerfile.dev .
+
+# Tell Travis to execute tests (-- -- Coverage will exit npm run test and print out the code coverage)
+script:
+  # run test
+  - docker run -e CI=true ecoden/udupay npm run test
+
+deploy:
+  #specify the provider
+  provider: elasticbeanstalk
+  #specify the region where the provider is present, You can get this from the AWS ElasticBeanstalk dashboard
+  region: 'us-east-2'
+  #Specify the application name in AWS elastic beanstalk
+  app: 'udupayClient'
+  #Specify the environment name in AWS elastic beanstalk
+  env: 'Udupayclient-env'
+  #Specify the Bucket name which is the name of the S3 (storage) which is created as part of Elastic beanstalk in AWS
+  bucket_name: 'elasticbeanstalk-us-east-2-693606001720'
+  #specify the path of the Bucket , this will be similar to the App name above
+  bucket_path: 'udupayClient'
+  #specify when you want to deploy (we want to deploy only when we push code to master branch)
+  on:
+    branch: master
+  #Specify the Environment variable name from which Travis can get the ACCESS_KEY to AWS
+  access_key_id: $AWS_ACCESS_KEY
+  #Specify the Environment variable name from which Travis can get the SECRET_KEY to AWS
+  secret_access_key:
+    secure: '$AWS_SECRET_KEY'

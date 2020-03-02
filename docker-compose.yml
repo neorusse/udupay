@@ -20,8 +20,8 @@ services:
 
     # enables our container filesystem to see local dev changes & updates itself
     volumes:
-      - ./:/usr/src/udupay-api
       - ./usr/src/udupay-api/node_modules
+      - ./:/usr/src/udupay-api
 
   # Database - Postgres
   postgres:
