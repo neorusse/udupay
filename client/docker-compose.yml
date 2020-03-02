@@ -1,0 +1,36 @@
+version: '3'
+services:
+  react-client:
+    build:
+      #Provide the path where you want docker-compose to find the Dockerfile
+      context: .
+      dockerfile: Dockerfile.dev
+      #env configuration for windows
+    environment:
+      env_file: .env
+      NODE_ENV: development
+    ports:
+      - '3000:3000'
+    volumes:
+      # folder in the docker container which you do not want to map
+      - /client/node_modules
+      #folder in your project which you would want to map
+      - .:/client
+
+  tests:
+    build:
+      #Provide the path where you want docker-compose to find the Dockerfile
+      context: .
+      #Dockerfile name
+      dockerfile: Dockerfile.dev
+    #env configuration for windows
+    environment:
+      env_file: .env
+      NODE_ENV: development
+    volumes:
+      #folder in the docker container which you donot want to map
+      - /client/node_modules
+      #folder in your project which you would want to map
+      - .:/client
+    #Command to execute tests
+    command: ['yarn', 'run', 'test']
