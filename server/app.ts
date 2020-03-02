@@ -9,8 +9,14 @@ import userRouter from './routes/userRoutes';
 import dueRouter from './routes/dueRoutes';
 import paymentRouter from './routes/paymentRoutes';
 
+// persist admin
+// import createAdmin from './adminSeed';
+
 // Initialize the Express App
 const app: Application = express();
+
+// seed admin
+// createAdmin();
 
 // logs HTTP requests
 app.use(logger('dev'));
